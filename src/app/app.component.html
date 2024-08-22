@@ -1,0 +1,42 @@
+<div class="layout-wrapper">
+    <div class="layout-sidebar">
+        <div class="user-info">
+            <i class="pi pi-user"></i>
+            <span>Lê Minh Hiếu</span>
+            <span>Admin</span>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a routerLink="/quanlynguoidung">
+                    <i class="pi pi-users"></i>
+                    Quản lý khách hàng
+                </a>
+            </li>
+            <li>
+                <a routerLink="/quanlyphong">
+                    <i class="pi pi-home"></i>
+                    Quản lý phòng
+                </a>
+            </li>
+            <li>
+                <a routerLink="/quanlydatphong">
+                    <i class="pi pi-calendar"></i>
+                    Quản lý đặt phòng
+                </a>
+            </li>
+            <li>
+                <a routerLink="/quanlykieuphong">
+                    <i class="pi pi-list"></i>
+                    Quản lý kiểu phòng
+                </a>
+            </li>
+            <li>
+                <i class="pi pi-users"></i>
+                Đăng xuất
+            </li>
+        </ul>
+    </div>
+    <div class="layout-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

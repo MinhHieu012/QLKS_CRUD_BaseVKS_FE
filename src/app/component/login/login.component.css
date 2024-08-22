@@ -1,0 +1,13 @@
+.form-register{
+  width: 275px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.form-register p{
+  font-weight: 800;
+  font-size: 25px;
+}

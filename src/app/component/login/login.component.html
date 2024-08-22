@@ -1,0 +1,13 @@
+
+<div class="form-register">
+  <p>ĐĂNG KÍ</p>
+  <input type="text" pInputText [(ngModel)]="account.username" placeholder="Email"/>
+
+  <input type="text" pInputText [(ngModel)]="account.fullName" placeholder="Fullname"/>
+
+  <p-password type="text" [toggleMask]="true" [(ngModel)]="account.password" placeholder="Password"/>
+
+  <input type="text" pInputText [(ngModel)]="account.role" placeholder="Role"/>
+
+  <p-button label="Đăng kí" (onClick)="handleRegister()"/>
+</div>
