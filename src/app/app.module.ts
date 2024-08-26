@@ -14,6 +14,16 @@ import { UserComponent } from './component/user/user.component';
 import { RoomComponent } from './component/room/room.component';
 import { RoomtypeComponent } from './component/roomtype/roomtype.component';
 import { BookingComponent } from './component/booking/booking.component';
+import { CalendarModule } from 'primeng/calendar';
+import { TableModule } from 'primeng/table';
+import { UserAddComponent } from './component/user/modal/user-add/user-add.component';
+import { UserUpdateComponent } from './component/user/modal/user-update/user-update.component';
+import { DialogModule } from 'primeng/dialog';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DividerModule } from 'primeng/divider';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -22,7 +32,9 @@ import { BookingComponent } from './component/booking/booking.component';
     UserComponent,
     RoomComponent,
     RoomtypeComponent,
-    BookingComponent
+    BookingComponent,
+    UserAddComponent,
+    UserUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -33,9 +45,16 @@ import { BookingComponent } from './component/booking/booking.component';
     InputTextModule,
     ButtonModule,
     BrowserAnimationsModule,
-    ToastModule
+    ToastModule,
+    CalendarModule,
+    TableModule,
+    DialogModule,
+    InputNumberModule,
+    DividerModule,
+    ConfirmPopupModule,
+    ConfirmDialogModule
   ],
-  providers: [],
+  providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,21 +1,16 @@
-export interface IToken{
-  accessToken:string,
-  refreshToken:string
+export interface IToken {
+  accessToken: String,
+  refreshToken: String
 }
 
-export interface IAccount{
-  fullName:string,
-  username:string,
-  password:string,
-  role:string
+export interface IAccount {
+  email: String,
+  username: String,
+  password: String,
 }
 
-export interface IUser{
-  username:string,
-  fullName:string,
-  password:string
-}
-
-export interface IResponeUser{
-  
+export interface IUser {
+  username: String,
+  email: String,
+  password: String
 }

@@ -14,8 +14,8 @@ export class LoginService {
     private localStorageService:LocalStorageService
   ) { }
 
-  register(account:IAccount):Observable<IToken>{
-    return this.http.post<IToken>("http://localhost:8080/api/v1/auth/register", account);
+  login(account:IAccount):Observable<IToken>{
+    return this.http.post<IToken>("http://localhost:8080/api/v1/auth/authenticate", account);
   }
 
   createUser(user:IUser):Observable<any>{

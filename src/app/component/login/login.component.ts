@@ -17,16 +17,15 @@ export class LoginComponent {
 
   account: IAccount = {
     username: "",
-    fullName: "",
-    password: "",
-    role: ""
+    email: "",
+    password: ""
   }
 
-  handleRegister() {
-    this.loginService.register(this.account).subscribe({
+  handleLogin() {
+    this.loginService.login(this.account).subscribe({
       next: (data) => {
         localStorage.setItem("token", JSON.stringify(data)); //Lưu token trả về vào local storage
-        this.router.navigate(['/product']);
+        this.router.navigate(['/quanlynguoidung']);
         this.clearFormRegister();
       },
       error: (e) => {
@@ -37,8 +36,7 @@ export class LoginComponent {
 
   clearFormRegister() {
     this.account.username = "";
-    this.account.fullName = "";
+    this.account.email = "";
     this.account.password = "";
-    this.account.role = "";
   }
 }

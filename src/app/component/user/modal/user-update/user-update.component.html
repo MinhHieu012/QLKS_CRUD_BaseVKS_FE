@@ -1,0 +1,101 @@
+<i class="pi pi-user-edit" (click)="showDialog()"></i>
+
+<div class="add_input">
+    <p-dialog
+        header="Cập nhật thông tin người dùng"
+        [modal]="true"
+        [(visible)]="display"
+        [style]="{ width: '33rem' }"
+    >
+        <div class="add_input_body">
+            <label
+                for="username"
+                class="font-semibold w-6rem"
+            >
+                Username<span class="text-red"> (*)</span>:
+            </label>
+            <input
+                pInputText
+                id="username"
+                class="flex-auto"
+                autocomplete="off"
+                placeholder="Nhập username"
+                required
+            >
+        </div>
+        <div class="add_input_body">
+            <label
+                for="phone"
+                class="font-semibold w-6rem"
+            >
+                Số điện thoại<span class="text-red"> (*)</span>:
+            </label>
+            <input
+                pInputText
+                id="phone"
+                class="flex-auto"
+                autocomplete="off"
+                type="number"
+                required
+                placeholder="Nhập số điện thoại"
+            >
+        </div>
+        <div class="add_input_body">
+            <label
+                for="email"
+                class="font-semibold w-6rem"
+            >
+                Email<span class="text-red"> (*)</span>:
+            </label>
+            <input
+                pInputText
+                id="email"
+                class="flex-auto"
+                autocomplete="off"
+                type="email"
+                required
+                placeholder="Nhập email"
+            >
+        </div>
+        <div class="add_input_body">
+            <label
+                for="dateOfBirth"
+                class="font-semibold w-6rem"
+            >
+                Nhập ngày sinh<span class="text-red"> (*)</span>:
+            </label>
+            <input
+                pInputText
+                id="dateOfBirth"
+                class="flex-auto"
+                autocomplete="off"
+                type="date"
+                required
+                placeholder="Nhập ngày sinh"
+            >
+        </div>
+        <div class="add_input_body">
+            <label
+                for="identificationNumber"
+                class="font-semibold w-6rem"
+            >
+                Nhập số CMND/CCCD<span class="text-red"> (*)</span>:
+            </label>
+            <input
+                pInputText
+                id="identificationNumber"
+                class="flex-auto"
+                autocomplete="off"
+                type="number"
+                required
+                placeholder="Nhập số CMND/CCCD"
+            >
+        </div>
+        <p-button
+            class="btn_confirm_add"
+            (click)="showDialog()"
+        >
+        <i class="pi pi-user-edit" style="color: white"></i>Cập nhật
+        </p-button>
+    </p-dialog>
+</div>

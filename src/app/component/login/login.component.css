@@ -1,4 +1,4 @@
-.form-register {
+.form-login {
   width: 275px;
   height: 400px;
   display: flex;
@@ -6,7 +6,7 @@
   justify-content: space-between;
 }
 
-.form-register p {
+.form-login p {
   font-weight: 800;
   font-size: 25px;
   padding: 0;
