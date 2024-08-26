@@ -26,3 +26,15 @@
 .text-red {
      color: red;
 }
+
+.field-error {
+     color: red;
+     margin-left: 202px;
+     margin-bottom: 17px;
+}
+
+.field-error-identificationNumber {
+     color: red;
+     margin-left: 132px;
+     margin-bottom: 17px;
+}

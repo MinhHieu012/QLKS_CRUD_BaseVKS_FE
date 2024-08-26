@@ -1,105 +1,95 @@
 <div class="title_user">
-    <h2>Quản lý người dùng</h2>
+  <h2>Quản lý người dùng</h2>
 </div>
 
 <div class="filter">
-    <h3 class="title_filter">Bộ lọc tìm kiếm</h3>
-    <div class="filter_body">
-        <div class="filter_input">
-            <p>Họ tên:</p>
-            <input
-                class="input_search"
-                type="text"
-                pInputText
-                placeholder="Nhập họ tên"
-            >
-            <p>Số điện thoại:</p>
-            <input
-                class="input_search"
-                type="number"
-                pInputText
-                placeholder="Nhập số điện thoại"
-            >
-            <p>Số CMND/CCCD:</p>
-            <input
-                class="input_search"
-                type="number"
-                pInputText
-                placeholder="Nhập số CMND/CCCD"
-            >
-            <p-button class="btn_search">Tìm kiếm</p-button>
-        </div>
+  <h3 class="title_filter">Bộ lọc tìm kiếm</h3>
+  <div class="filter_body">
+    <div class="filter_input">
+      <p>Họ tên:</p>
+      <input
+        class="input_search"
+        type="text"
+        pInputText
+        placeholder="Nhập họ tên"
+      />
+      <p>Số điện thoại:</p>
+      <input
+        class="input_search"
+        type="number"
+        pInputText
+        placeholder="Nhập số điện thoại"
+      />
+      <p>Số CMND/CCCD:</p>
+      <input
+        class="input_search"
+        type="number"
+        pInputText
+        placeholder="Nhập số CMND/CCCD"
+      />
+      <p-button class="btn_search">Tìm kiếm</p-button>
     </div>
+  </div>
 </div>
 
 <div class="user_table">
-    <div class="table_header">
-        <h3 class="title_user">Danh sách người dùng</h3>
-        <app-user-add (callGetUserBackAfterAdd)="getUserBackAfterAdd()"></app-user-add>
+  <div class="table_header">
+    <h3 class="title_user">Danh sách người dùng</h3>
+    <p-toast></p-toast>
+    <app-user-add
+      (callGetUserBackAfterAdd)="getUserBackAfterAdd()"
+    ></app-user-add>
+  </div>
+  <div class="table_body">
+    <div class="card">
+      <p-table [value]="listUser" [tableStyle]="{ 'min-width': '60rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="username">
+              Họ tên
+              <p-sortIcon field="username"></p-sortIcon>
+            </th>
+            <th pSortableColumn="identificationNumber">
+              Số CMND/CCCD
+              <p-sortIcon field="identificationNumber"></p-sortIcon>
+            </th>
+            <th pSortableColumn="dateOfBirth">
+              Ngày sinh
+              <p-sortIcon field="dateOfBirth"></p-sortIcon>
+            </th>
+            <th pSortableColumn="role">
+              Quyền
+              <p-sortIcon field="role"></p-sortIcon>
+            </th>
+            <th pSortableColumn="status">
+              Trạng thái
+              <p-sortIcon field="status"></p-sortIcon>
+            </th>
+            <th>Thao tác</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+          <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.identificationNumber }}</td>
+            <td>{{ user.dateOfBirth | date : "dd-MM-yyyy" }}</td>
+            <td>{{ user.role }}</td>
+            <td *ngIf="user.status === 'ACTIVE'">Đang hoạt động</td>
+            <td *ngIf="user.status !== 'ACTIVE'">Đang bị khóa</td>
+            <td *ngIf="user.status === 'ACTIVE'" class="action_icon">
+              <app-user-update></app-user-update>
+              <p-toast></p-toast>
+              <p-confirmPopup></p-confirmPopup>
+              <i class="pi pi-lock" (click)="confirmLockUser($event)"></i>
+            </td>
+            <td *ngIf="user.status !== 'ACTIVE'">
+              <p-toast></p-toast>
+              <p-confirmPopup></p-confirmPopup>
+              <i class="pi pi-unlock" (click)="confirmUnLockUser($event)"></i>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
-    <div class="table_body">
-        <div class="card">
-            <p-table [value]="listUser" [tableStyle]="{ 'min-width': '60rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th
-                            pSortableColumn="username"
-                        >
-                            Họ tên
-                            <p-sortIcon field="username"></p-sortIcon>
-                        </th>
-                        <th
-                            pSortableColumn="identificationNumber"
-                        >
-                            Số CMND/CCCD
-                            <p-sortIcon field="identificationNumber"></p-sortIcon>
-                        </th>
-                        <th
-                            pSortableColumn="dateOfBirth"
-                        >
-                            Ngày sinh
-                            <p-sortIcon field="dateOfBirth"></p-sortIcon>
-                        </th>
-                        <th
-                            pSortableColumn="role"
-                        >
-                            Quyền
-                            <p-sortIcon field="role"></p-sortIcon>
-                        </th>
-                        <th
-                            pSortableColumn="status"
-                        >
-                            Trạng thái
-                            <p-sortIcon field="status"></p-sortIcon>
-                        </th>
-                        <th
-                        >
-                            Thao tác
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-user>
-                    <tr>
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.identificationNumber }}</td>
-                        <td>{{ user.dateOfBirth | date:'dd-MM-yyyy' }}</td>
-                        <td>{{ user.role }}</td>
-                        <td *ngIf="user.status === 'ACTIVE'">Đang hoạt động</td>
-                        <td *ngIf="user.status !== 'ACTIVE'">Đang bị khóa</td>
-                        <td *ngIf="user.status === 'ACTIVE'" class="action_icon">
-                            <app-user-update></app-user-update>
-                            <p-toast></p-toast>
-                            <p-confirmPopup></p-confirmPopup>
-                            <i class="pi pi-lock" (click)="confirmLockUser($event)"></i>
-                        </td>
-                        <td *ngIf="user.status !== 'ACTIVE'">
-                            <p-toast></p-toast>
-                            <p-confirmPopup></p-confirmPopup>
-                            <i class="pi pi-unlock" (click)="confirmUnLockUser($event)"></i>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-    </div>
+  </div>
 </div>

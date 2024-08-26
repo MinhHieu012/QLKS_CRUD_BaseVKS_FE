@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { UserAdd } from '../../../../interface/user.interface';
 import { UserService } from '../../../../service/user.service';
+import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-add',
@@ -9,10 +11,14 @@ import { UserService } from '../../../../service/user.service';
 })
 export class UserAddComponent {
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private messageService: MessageService,
   ) { }
 
   @Output() callGetUserBackAfterAdd = new EventEmitter<String>();
+
+  errorMessage: String = '';
+  fieldErrors: any = {};
 
   display: boolean = false;
   showDialog() {
@@ -40,10 +46,29 @@ export class UserAddComponent {
   }
 
   handleAddUser() {
-    this.userService.addUser(this.dataAddUser).subscribe(() => {
-      this.clearModalDataAddUser();
-      this.callGetUserBackAfterAdd.emit();
-      this.display = false;
-    })
+    this.userService.addUser(this.dataAddUser).subscribe({
+      next: () => {
+        this.clearModalDataAddUser();
+        this.callGetUserBackAfterAdd.emit();
+        this.display = false;
+        this.showAddSuccessNotification();
+      },
+      error: (error: HttpErrorResponse) => {
+        if (error.error) {
+          this.showAddFailedNotification();
+          this.fieldErrors = error.error.result;
+        } else {
+          this.errorMessage = "Lỗi không xác định!";
+        }
+      }
+    });
+  }
+
+  showAddSuccessNotification() {
+    this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Thêm người dùng thành công!' });
+  }
+
+  showAddFailedNotification() {
+    this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Thêm người dùng thất bại!' });
   }
 }
