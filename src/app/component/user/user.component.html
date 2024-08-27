@@ -12,22 +12,28 @@
         type="text"
         pInputText
         placeholder="Nhập họ tên"
+        [(ngModel)]="username"
+        (keyup.enter)="handleSearch()"
       />
       <p>Số điện thoại:</p>
       <input
         class="input_search"
-        type="number"
+        type="text"
         pInputText
         placeholder="Nhập số điện thoại"
+        [(ngModel)]="phone"
+        (keyup.enter)="handleSearch()"
       />
       <p>Số CMND/CCCD:</p>
       <input
         class="input_search"
-        type="number"
+        type="text"
         pInputText
         placeholder="Nhập số CMND/CCCD"
+        [(ngModel)]="identificationNumber"
+        (keyup.enter)="handleSearch()"
       />
-      <p-button class="btn_search">Tìm kiếm</p-button>
+      <p-button class="btn_search" (click)="handleSearch()">Tìm kiếm</p-button>
     </div>
   </div>
 </div>
@@ -69,7 +75,10 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user>
-          <tr>
+          <tr *ngIf="listUser.length === 0">
+            Không tìm thấy người dùng tương ứng!
+          </tr>
+          <tr *ngIf="listUser.length != 0">
             <td>{{ user.username }}</td>
             <td>{{ user.identificationNumber }}</td>
             <td>{{ user.dateOfBirth | date : "dd-MM-yyyy" }}</td>

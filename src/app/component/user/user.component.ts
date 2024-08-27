@@ -25,6 +25,10 @@ export class UserComponent {
   errorMessage: String = '';
   fieldErrors: any = {};
 
+  username?: String = '';
+  phone?: String = '';
+  identificationNumber?: String = '';
+
   getAllUsers() {
     this.userService.getAllUsers().subscribe((data: any) => {
       this.listUser = data.result;
@@ -87,5 +91,16 @@ export class UserComponent {
         this.messageService.add({ severity: 'error', summary: 'Mở khóa', detail: 'Người dùng chưa được mở khóa!' });
       }
     });
+  }
+
+  handleSearch() {
+    this.userService.searchUser(this.username, this.phone, this.identificationNumber).subscribe((data: any) => {
+      if (data.result.length === 0) {
+        this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy người dùng nào!' });
+        this.listUser = data.result;
+      } else {
+        this.listUser = data.result;
+      }
+    })
   }
 }
