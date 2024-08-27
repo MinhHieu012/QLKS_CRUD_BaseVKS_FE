@@ -18,7 +18,11 @@
         autocomplete="off"
         placeholder="Nhập username"
         required
+        [(ngModel)]="dataUserSendToUpdate.username"
       />
+    </div>
+    <div *ngIf="fieldErrors.username" class="field-error">
+      {{ fieldErrors.username }}
     </div>
     <div class="add_input_body">
       <label for="phone" class="font-semibold w-6rem">
@@ -29,10 +33,14 @@
         id="phone"
         class="flex-auto"
         autocomplete="off"
-        type="number"
+        type="text"
         required
         placeholder="Nhập số điện thoại"
+        [(ngModel)]="dataUserSendToUpdate.phone"
       />
+    </div>
+    <div *ngIf="fieldErrors.phone" class="field-error">
+      {{ fieldErrors.phone }}
     </div>
     <div class="add_input_body">
       <label for="email" class="font-semibold w-6rem">
@@ -46,7 +54,11 @@
         type="email"
         required
         placeholder="Nhập email"
+        [(ngModel)]="dataUserSendToUpdate.email"
       />
+    </div>
+    <div *ngIf="fieldErrors.email" class="field-error">
+      {{ fieldErrors.email }}
     </div>
     <div class="add_input_body">
       <label for="dateOfBirth" class="font-semibold w-6rem">
@@ -60,6 +72,7 @@
         type="date"
         required
         placeholder="Nhập ngày sinh"
+        [(ngModel)]="dataUserSendToUpdate.dateOfBirth"
       />
     </div>
     <div class="add_input_body">
@@ -71,13 +84,20 @@
         id="identificationNumber"
         class="flex-auto"
         autocomplete="off"
-        type="number"
+        type="text"
         required
         placeholder="Nhập số CMND/CCCD"
+        [(ngModel)]="dataUserSendToUpdate.identificationNumber"
       />
     </div>
-    <p-button class="btn_confirm_add" (click)="showDialog()">
+    <div *ngIf="fieldErrors.identificationNumber" class="field-error">
+      {{ fieldErrors.identificationNumber }}
+    </div>
+    <p-button class="btn_confirm_add" (click)="handleUpdateUser()">
       <i class="pi pi-user-edit" style="color: white"></i>Cập nhật
     </p-button>
+    <div *ngIf="fieldErrors.locked" class="field-error-locked">
+      {{ fieldErrors.locked }}
+    </div>
   </p-dialog>
 </div>

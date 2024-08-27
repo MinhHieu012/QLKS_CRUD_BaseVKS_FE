@@ -28,7 +28,7 @@ export class UserComponent {
     });
   }
 
-  getUserBackAfterAdd() {
+  getUserBackAfterAddUpate() {
     this.getAllUsers();
   }
 

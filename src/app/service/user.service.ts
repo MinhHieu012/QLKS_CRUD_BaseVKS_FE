@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User, UserAdd } from '../interface/user.interface';
+import { User, UserAdd, UserUpdate } from '../interface/user.interface';
 import { LocalStorageService } from './local-storage-service.service';
 
 @Injectable({
@@ -21,5 +21,12 @@ export class UserService {
   public addUser(dataAddUser: UserAdd) {
     const headers = this.localStorageService.header();
     return this.http.post<User>('http://localhost:8080/admin/quanlyuser/add', dataAddUser, {headers});
+  }
+
+  public updateUser(dataUserSendToUpdate: UserUpdate) {
+    const headers = this.localStorageService.header();
+    console.log(dataUserSendToUpdate, 'service');
+    
+    return this.http.put<User>(`http://localhost:8080/admin/quanlyuser/update/${dataUserSendToUpdate.id}`, dataUserSendToUpdate, {headers});
   }
 }

@@ -29,20 +29,9 @@ export class UserAddComponent {
     username: '',
     email: '',
     password: '',
-    phone: 0,
+    phone: '',
     identificationNumber: '',
     dateOfBirth: new Date()
-  }
-
-  clearModalDataAddUser() {
-    this.dataAddUser = {
-      username: '',
-      email: '',
-      password: '',
-      phone: 0,
-      identificationNumber: '',
-      dateOfBirth: new Date()
-    }
   }
 
   handleAddUser() {
@@ -62,6 +51,17 @@ export class UserAddComponent {
         }
       }
     });
+  }
+
+  clearModalDataAddUser() {
+    this.dataAddUser = {
+      username: '',
+      email: '',
+      password: '',
+      phone: '',
+      identificationNumber: '',
+      dateOfBirth: new Date()
+    }
   }
 
   showAddSuccessNotification() {

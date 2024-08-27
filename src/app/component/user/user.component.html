@@ -37,7 +37,7 @@
     <h3 class="title_user">Danh sách người dùng</h3>
     <p-toast></p-toast>
     <app-user-add
-      (callGetUserBackAfterAdd)="getUserBackAfterAdd()"
+      (callGetUserBackAfterAdd)="getUserBackAfterAddUpate()"
     ></app-user-add>
   </div>
   <div class="table_body">
@@ -77,7 +77,15 @@
             <td *ngIf="user.status === 'ACTIVE'">Đang hoạt động</td>
             <td *ngIf="user.status !== 'ACTIVE'">Đang bị khóa</td>
             <td *ngIf="user.status === 'ACTIVE'" class="action_icon">
-              <app-user-update></app-user-update>
+              <app-user-update
+                [userDataIdFromParent]="user.id"
+                [userDataUsernameFromParent]="user.username"
+                [userDataEmailFromParent]="user.email"
+                [userDataPhoneFromParent]="user.phone"
+                [userDataIdentificationNumberFromParent]="user.identificationNumber"
+                [userDataDateOfBirthFromParent]="user.dateOfBirth"
+                (callGetCustomersBackAfterUpdate)="getUserBackAfterAddUpate()"
+              ></app-user-update>
               <p-toast></p-toast>
               <p-confirmPopup></p-confirmPopup>
               <i class="pi pi-lock" (click)="confirmLockUser($event)"></i>
