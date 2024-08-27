@@ -73,9 +73,11 @@
             <td>{{ user.username }}</td>
             <td>{{ user.identificationNumber }}</td>
             <td>{{ user.dateOfBirth | date : "dd-MM-yyyy" }}</td>
-            <td>{{ user.role }}</td>
-            <td *ngIf="user.status === 'ACTIVE'">Đang hoạt động</td>
-            <td *ngIf="user.status !== 'ACTIVE'">Đang bị khóa</td>
+            <td *ngIf="user.role === 'USER'" class="role_user">Khách</td>
+            <td *ngIf="user.role === 'ADMIN'" class="role_admin">Quản trị viên</td>
+            <td *ngIf="user.role === 'MANAGER'" class="role_manager">Quản lý</td>
+            <td *ngIf="user.status === 'ACTIVE'" class="user_working">Đang hoạt động</td>
+            <td *ngIf="user.status !== 'ACTIVE'" class="user_locking">Đang bị khóa</td>
             <td *ngIf="user.status === 'ACTIVE'" class="action_icon">
               <app-user-update
                 [userDataIdFromParent]="user.id"
@@ -88,12 +90,14 @@
               ></app-user-update>
               <p-toast></p-toast>
               <p-confirmPopup></p-confirmPopup>
-              <i class="pi pi-lock" (click)="confirmLockUser($event)"></i>
+              <i class="pi pi-lock" 
+                (click)="confirmLockUser($event, user.id, user.username)"
+              ></i>
             </td>
             <td *ngIf="user.status !== 'ACTIVE'">
               <p-toast></p-toast>
               <p-confirmPopup></p-confirmPopup>
-              <i class="pi pi-unlock" (click)="confirmUnLockUser($event)"></i>
+              <i class="pi pi-unlock" (click)="confirmUnLockUser($event, user.id, user.username)"></i>
             </td>
           </tr>
         </ng-template>

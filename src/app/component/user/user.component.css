@@ -71,3 +71,28 @@
 .action_icon {
   display: flex;
 }
+
+.user_working {
+  color: #56F000;
+  font-weight: bold;
+}
+
+.user_locking {
+  color: #FF3838;
+  font-weight: bold;
+}
+
+.role_user {
+  color: #3B82F6;
+  font-weight: bold;
+}
+
+.role_admin {
+  color: red;
+  font-weight: bold;
+}
+
+.role_manager {
+  color: #FFB302;
+  font-weight: bold;
+}

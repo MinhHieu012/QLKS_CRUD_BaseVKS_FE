@@ -7,6 +7,7 @@ import { LocalStorageService } from './local-storage-service.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
   public message$: BehaviorSubject<string> = new BehaviorSubject('')
   constructor(
@@ -25,8 +26,16 @@ export class UserService {
 
   public updateUser(dataUserSendToUpdate: UserUpdate) {
     const headers = this.localStorageService.header();
-    console.log(dataUserSendToUpdate, 'service');
-    
     return this.http.put<User>(`http://localhost:8080/admin/quanlyuser/update/${dataUserSendToUpdate.id}`, dataUserSendToUpdate, {headers});
+  }
+
+  public lockUser(id: String) {
+    const headers = this.localStorageService.header();
+    return this.http.patch<User>(`http://localhost:8080/admin/quanlyuser/lock/${id}`, {}, {headers});
+  }
+
+  public unLockUser(id: String) {
+    const headers = this.localStorageService.header();
+    return this.http.patch<User>(`http://localhost:8080/admin/quanlyuser/unlock/${id}`, {}, {headers});
   }
 }
