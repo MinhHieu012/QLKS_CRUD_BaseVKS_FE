@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { UserService } from '../../service/user.service';
-import { User } from '../../interface/user.interface';
+import { GetUserWithSearchPaging, User } from '../../interface/user.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -29,9 +29,24 @@ export class UserComponent {
   phone?: String = '';
   identificationNumber?: String = '';
 
+  totalItem: number = 0;
+  totalPage: number = 0;
+  page: number = 1;
+  limit: number = 2;
+
+  stateGetUserWithSearchPaging: GetUserWithSearchPaging = {
+    page: 1,
+    limit: 3,
+    username: '',
+    phone: '',
+    identificationNumber: ''
+  }
+
   getAllUsers() {
-    this.userService.getAllUsers().subscribe((data: any) => {
+    this.userService.getAllUsers(this.stateGetUserWithSearchPaging).subscribe((data: any) => {
       this.listUser = data.result;
+      this.getToTalItem(); 
+      this.getTotalPages();
     });
   }
 
@@ -102,5 +117,20 @@ export class UserComponent {
         this.listUser = data.result;
       }
     })
+  }
+
+  getTotalPages() {
+    this.totalPage = Math.ceil(Number(this.listUser.length) / Number(this.limit));
+    console.log(this.totalPage, 'Tổng số trang hàm getTotalPages()');
+  }
+
+  getToTalItem() {
+    this.totalItem = this.listUser.length;
+    console.log(this.totalItem, 'Tổng số user hàm getToTalItem()');
+  }
+
+  onPageChange(event: any) {
+    this.stateGetUserWithSearchPaging.page = event.page + 1;
+    this.getAllUsers();
   }
 }

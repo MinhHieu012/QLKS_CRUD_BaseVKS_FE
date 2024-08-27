@@ -24,6 +24,8 @@ import { DividerModule } from 'primeng/divider';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { PaginatorModule } from 'primeng/paginator';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     InputNumberModule,
     DividerModule,
     ConfirmPopupModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    PaginatorModule,
+    ProgressSpinnerModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent]

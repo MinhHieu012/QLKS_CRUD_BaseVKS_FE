@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User, UserAdd, UserUpdate } from '../interface/user.interface';
+import { GetUserWithSearchPaging, User, UserAdd, UserUpdate } from '../interface/user.interface';
 import { LocalStorageService } from './local-storage-service.service';
 
 @Injectable({
@@ -15,8 +15,14 @@ export class UserService {
     private localStorageService: LocalStorageService
   ) { }
 
-  public getAllUsers(): Observable<User> {
-    return this.http.get<User>("http://localhost:8080/admin/quanlyuser");
+  public getAllUsers(data: GetUserWithSearchPaging): Observable<User> {
+    let params = new HttpParams()
+    .set('page', data.page ? data.page : '')
+    .set('limit', data.limit ? data.limit : '')
+    .set('username', data.username ? data.username : '')
+    .set('phone', data.phone ? data.phone : '')
+    .set('identificationNumber', data.identificationNumber ? data.identificationNumber : '')
+    return this.http.get<User>(`http://localhost:8080/admin/quanlyuser/filter`, {params});
   }
 
   public addUser(dataAddUser: UserAdd) {

@@ -23,3 +23,11 @@ export interface UserUpdate {
      identificationNumber: String,
      dateOfBirth: String,
 }
+
+export interface GetUserWithSearchPaging {
+     limit: number,
+     page: number,
+     username: string | number | boolean
+     phone: string | number | boolean
+     identificationNumber: string | number | boolean
+}
