@@ -26,6 +26,9 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { PaginatorModule } from 'primeng/paginator';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { RoomAddComponent } from './component/room/modal/room-add/room-add.component';
+import { RoomUpdateComponent } from './component/room/modal/room-update/room-update.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     RoomtypeComponent,
     BookingComponent,
     UserAddComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    RoomAddComponent,
+    RoomUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +61,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ConfirmPopupModule,
     ConfirmDialogModule,
     PaginatorModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    DropdownModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent]
