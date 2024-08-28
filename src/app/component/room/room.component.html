@@ -37,16 +37,32 @@
     <div class="filter_input_right">
       <div class="room_type_search">
         <span>Loại phòng:</span>
-        <p-dropdown class="dropdown_search" optionLabel="roomType" placeholder="Chọn loại phòng" autoWidth="false" [style]="{'width':'100%'}"/>
+        <p-dropdown
+          optionLabel="name"
+          [options]="roomType"
+          class="dropdown_search"
+          placeholder="Chọn loại phòng"
+          autoWidth="false"
+          [style]="{ width: '100%' }"
+        />
       </div>
       <div class="status_search">
         <span>Trạng thái:</span>
-        <p-dropdown class="dropdown_search" optionLabel="roomStatus" placeholder="Chọn trạng thái phòng" [style]="{'width':'100%'}"/>
+        <p-dropdown
+          optionLabel="name"
+          [options]="roomStatus"
+          class="dropdown_search"
+          placeholder="Chọn trạng thái phòng"
+          [style]="{ width: '100%' }"
+        />
       </div>
       <p-button class="btn_search">Tìm kiếm</p-button>
     </div>
   </div>
 </div>
+
+<p-toast></p-toast>
+<p-confirmPopup></p-confirmPopup>
 
 <div class="room_table">
   <div class="table_header">
@@ -56,7 +72,7 @@
   </div>
   <div class="table_body">
     <div class="card">
-      <p-table [tableStyle]="{ 'min-width': '60rem' }">
+      <p-table [value]="listRoom" [tableStyle]="{ 'min-width': '60rem' }">
         <ng-template pTemplate="header">
           <tr>
             <th pSortableColumn="name">
@@ -90,16 +106,22 @@
             <th>Thao tác</th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-user>
+        <ng-template pTemplate="body" let-room>
           <tr>
-            <td>1</td>
-            <td class="action_icon">
-              <app-room-update></app-room-update>
-              <p-toast></p-toast>
-              <p-confirmPopup></p-confirmPopup>
-              <i class="pi pi-lock"></i>
-              <p-confirmPopup></p-confirmPopup>
-              <i class="pi pi-unlock"></i>
+            <td>{{ room.name }}</td>
+            <td>{{ room.roomNumber }}</td>
+            <td>{{ room.floor }}</td>
+            <td>{{ room.roomType.name }}</td>
+            <td>{{ room.description }}</td>
+            <td>{{ room.price }}</td>
+            <td>{{ room.status }}</td>
+            <td *ngIf="room.status === 'USING' || room.status === 'APPROVED'" class="action_icon">
+               <i class="pi pi-times"></i>
+            </td>
+            <td *ngIf="room.status === 'LOCK' || room.status === 'ACTIVE' || room.status === 'CLEANING'" class="action_icon">
+               <app-room-update></app-room-update>
+               <i *ngIf="room.status === 'LOCK'" class="pi pi-unlock"></i>
+               <i *ngIf="room.status === 'ACTIVE'" class="pi pi-lock"></i>
             </td>
           </tr>
         </ng-template>

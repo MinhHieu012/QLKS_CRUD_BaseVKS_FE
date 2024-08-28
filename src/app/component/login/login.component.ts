@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from '../../service/login.service';
 import { IAccount } from '../../interface/login.interface';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ export class LoginComponent {
 
   constructor(
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) { }
 
   account: IAccount = {
@@ -26,6 +28,7 @@ export class LoginComponent {
       next: (data) => {
         localStorage.setItem("token", JSON.stringify(data)); //Lưu token trả về vào local storage
         this.router.navigate(['/quanlynguoidung']);
+        this.messageService.add({ severity: 'success', summary: 'Đăng nhập', detail: 'Đăng nhập thành công!' });
         this.clearFormRegister();
       },
       error: (e) => {
