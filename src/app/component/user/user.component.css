@@ -6,10 +6,6 @@
   color: black;
 }
 
-.user_table {
-  padding-bottom: 30px;
-}
-
 .filter {
   margin-top: 20px;
 }
@@ -46,6 +42,10 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+}
+
+.table_body {
+  height: 375px;
 }
 
 .table_body th {
