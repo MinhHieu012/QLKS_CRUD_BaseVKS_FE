@@ -17,6 +17,7 @@ export interface User {
 
 export interface RoomStatus {
      name: String;
+     code: String;
 }
 
 export interface RoomTypeForDropdown {

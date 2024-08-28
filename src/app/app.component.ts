@@ -9,6 +9,7 @@ import { MessageService } from 'primeng/api';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+margin: any;
   constructor(
     private loginService: LoginService,
     private router: Router,

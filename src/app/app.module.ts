@@ -29,6 +29,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RoomAddComponent } from './component/room/modal/room-add/room-add.component';
 import { RoomUpdateComponent } from './component/room/modal/room-update/room-update.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { DropdownModule } from 'primeng/dropdown';
     ConfirmDialogModule,
     PaginatorModule,
     ProgressSpinnerModule,
-    DropdownModule
+    DropdownModule,
+    InputTextareaModule
   ],
   providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent]

@@ -1,1 +1,95 @@
-<p-button class="btn_add"> + Thêm </p-button>
+<p-button class="btn_add" (click)="showDialog()"> + Thêm </p-button>
+
+<div class="add_input">
+  <p-dialog
+    header="Thêm phòng"
+    [modal]="true"
+    [(visible)]="display"
+    [style]="{ width: '33rem' }"
+  >
+    <div class="add_input_body">
+      <label for="name" class="font-semibold w-6rem">
+        Tên phòng
+        <span class="text-red">(*)</span>
+      </label>
+      <input
+        pInputText
+        id="name"
+        class="flex-auto"
+        autocomplete="off"
+        placeholder="Nhập tên phòng"
+        required
+      />
+    </div>
+    <div class="add_input_body">
+      <label for="roomNumber" class="font-semibold w-6rem">
+        Số phòng
+        <span class="text-red">(*)</span>
+      </label>
+      <input
+        pInputText
+        id="roomNumber"
+        class="flex-auto"
+        autocomplete="off"
+        required
+        placeholder="Nhập số phòng"
+      />
+    </div>
+    <div class="add_input_body">
+      <label for="floor" class="font-semibold w-6rem">
+        Tầng
+        <span class="text-red">(*)</span>
+      </label>
+      <input
+        pInputText
+        id="floor"
+        class="flex-auto"
+        autocomplete="off"
+        type="email"
+        required
+        placeholder="Nhập số tầng"
+      />
+    </div>
+    <div class="add_input_body">
+      <label for="roomType" class="font-semibold w-6rem">
+        Loại phòng
+        <span class="text-red">(*)</span>
+      </label>
+      <p-dropdown
+        optionLabel="name"
+        [options]="roomType"
+        class="dropdown_search"
+        placeholder="Chọn loại phòng"
+        autoWidth="false"
+        [style]="{ width: '100%' }"
+      />
+    </div>
+    <div class="add_input_body">
+      <label for="dateOfBirth" class="font-semibold w-6rem"> Mô tả </label>
+      <textarea
+        class="textarea_desc"
+        rows="3"
+        cols="27"
+        pInputTextarea
+        placeholder="Nhập mô tả phòng"
+      ></textarea>
+    </div>
+    <div class="add_input_body">
+      <label for="price" class="font-semibold w-6rem">
+        Giá
+        <span class="text-red">(*)</span>
+      </label>
+      <input
+        pInputText
+        id="price"
+        class="flex-auto"
+        autocomplete="off"
+        required
+        placeholder="Nhập giá/giờ"
+      />
+    </div>
+    <p-button class="btn_confirm_add" (click)="handleAddRoom()">
+      + Thêm
+    </p-button>
+  </p-dialog>
+</div>

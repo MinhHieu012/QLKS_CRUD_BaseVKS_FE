@@ -2,6 +2,10 @@
   <h2>Quản lý phòng</h2>
 </div>
 
+<div class="progress-spinner" *ngIf="isLoading==true">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+
 <div class="filter">
   <h3 class="title_filter">Bộ lọc tìm kiếm</h3>
   <div class="filter_body">
@@ -49,7 +53,7 @@
       <div class="status_search">
         <span>Trạng thái:</span>
         <p-dropdown
-          optionLabel="name"
+          optionLabel="code"
           [options]="roomStatus"
           class="dropdown_search"
           placeholder="Chọn trạng thái phòng"
@@ -114,7 +118,10 @@
             <td>{{ room.roomType.name }}</td>
             <td>{{ room.description }}</td>
             <td>{{ room.price }}</td>
-            <td>{{ room.status }}</td>
+            <td *ngIf="room.status === 'ACTIVE'">Đang rảnh</td>
+            <td *ngIf="room.status === 'LOCK'">Bị khóa</td>
+            <td *ngIf="room.status === 'USING'">Đang sử dụng</td>
+            <td *ngIf="room.status === 'CLEANING'">Đang dọn dẹp</td>
             <td *ngIf="room.status === 'USING' || room.status === 'APPROVED'" class="action_icon">
                <i class="pi pi-times"></i>
             </td>

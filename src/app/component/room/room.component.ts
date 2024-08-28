@@ -17,13 +17,14 @@ export class RoomComponent {
   ngOnInit() {
     this.getAllRoomTypeForDropdown();
     this.roomStatus = [
-      { name: 'ACTIVE' },
-      { name: 'LOCK' },
-      { name: 'CLEANING' },
-      { name: 'USING' },
-      { name: 'APPROVED' }
+      { name: 'ACTIVE', code: 'Đang rảnh' },
+      { name: 'LOCK',  code: 'Bị khóa' },
+      { name: 'CLEANING', code: 'Đang dọn dẹp' },
+      { name: 'USING', code: 'Đang sử dụng' }
     ];
   }
+
+  isLoading: boolean = true;
 
   roomStatus: RoomStatus[] = [];
   roomType: RoomTypeForDropdown[] = [];
@@ -31,15 +32,17 @@ export class RoomComponent {
   listRoom: Room[] = [];
 
   getAllRoomTypeForDropdown() {
-    this.roomService.getAllRoomTypeForDropdown().subscribe((data:any) => {
+    this.roomService.getAllRoomTypeForDropdown().subscribe((data: any) => {
       this.roomType = data.result;
       this.getAllRoom();
     })
   }
 
   getAllRoom() {
-    this.roomService.getAllRoom().subscribe((data:any) => {
+    this.isLoading = true;
+    this.roomService.getAllRoom().subscribe((data: any) => {
       this.listRoom = data.result;
+      this.isLoading = false;
     })
   }
 }
