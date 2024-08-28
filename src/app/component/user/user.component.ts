@@ -18,16 +18,17 @@ export class UserComponent {
   ) { }
 
   ngOnInit(): void {
-    this.getAllUsers();
+    this.getUserWithSearchAndPaging();
   }
 
   listUser: User[] = [];
   errorMessage: String = '';
   fieldErrors: any = {};
 
-  username?: String = '';
-  phone?: String = '';
-  identificationNumber?: String = '';
+  username?: string | number | boolean;
+  phone?: string | number | boolean;
+  identificationNumber?: string | number | boolean;
+  isFirstTimeSearch: boolean = true;
 
   totalItem: number = 0;
   totalPage: number = 0;
@@ -42,16 +43,24 @@ export class UserComponent {
     identificationNumber: ''
   }
 
-  getAllUsers() {
+  getUserWithSearchAndPaging() {
     this.userService.getAllUsers(this.stateGetUserWithSearchPaging).subscribe((data: any) => {
+      if (data.result.content.length === 0) {
+        this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy người dùng nào!' });
+      } 
+      if (this.isFirstTimeSearch === true && data.result.content.length > 0 && this.stateGetUserWithSearchPaging.username !== '' || this.stateGetUserWithSearchPaging.phone !== '' || this.stateGetUserWithSearchPaging.identificationNumber !== '') {
+        this.messageService.add({ severity: 'success', summary: 'Tìm kiếm', detail: 'Đã tìm thấy user!' });
+      }
       this.listUser = data.result.content;
       this.totalItem = data.result.totalElements;
       this.totalPage = data.result.totalPages;
+      console.log(this.isFirstTimeSearch);
+      
     });
   }
 
   getUserBackAfterAddUpate() {
-    this.getAllUsers();
+    this.getUserWithSearchAndPaging();
   }
 
   confirmLockUser(eventLockUser: Event, id: String, username: String) {
@@ -63,7 +72,7 @@ export class UserComponent {
         this.userService.lockUser(id).subscribe({
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Khóa', detail: `Đã khóa người dùng có họ tên là ${username}` });
-            this.getAllUsers();
+            this.getUserWithSearchAndPaging();
           },
           error: (error: HttpErrorResponse) => {
             if (error.error) {
@@ -90,7 +99,7 @@ export class UserComponent {
         this.userService.unLockUser(id).subscribe({
           next: () => {
             this.messageService.add({ severity: 'success', summary: 'Mở khóa', detail: 'Đã mở khóa người dùng này!' });
-            this.getAllUsers();
+            this.getUserWithSearchAndPaging();
           },
           error: (error: HttpErrorResponse) => {
             if (error.error) {
@@ -109,18 +118,16 @@ export class UserComponent {
   }
 
   handleSearch() {
-    this.userService.searchUser(this.username, this.phone, this.identificationNumber).subscribe((data: any) => {
-      if (data.result.length === 0) {
-        this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy người dùng nào!' });
-        this.listUser = data.result;
-      } else {
-        this.listUser = data.result;
-      }
-    })
+    this.stateGetUserWithSearchPaging.username = this.username || '';
+    this.stateGetUserWithSearchPaging.phone = this.phone || '';
+    this.stateGetUserWithSearchPaging.identificationNumber = this.identificationNumber || '';
+    this.isFirstTimeSearch = true;
+    this.getUserWithSearchAndPaging();
   }
 
   onPageChange(event: any) {
     this.stateGetUserWithSearchPaging.page = event.page + 1;
-    this.getAllUsers();
+    this.isFirstTimeSearch = false;
+    this.getUserWithSearchAndPaging();
   }
 }

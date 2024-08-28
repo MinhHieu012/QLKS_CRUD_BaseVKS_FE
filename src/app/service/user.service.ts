@@ -44,8 +44,4 @@ export class UserService {
     const headers = this.localStorageService.header();
     return this.http.patch<User>(`http://localhost:8080/admin/quanlyuser/unlock/${id}`, {}, {headers});
   }
-
-  public searchUser(username?: String, phone?: String, identificationNumber?: String) {
-    return this.http.get<User>(`http://localhost:8080/admin/quanlyuser/search?username=${username}&phone=${phone}&identificationNumber=${identificationNumber}`);
-  }
 }
