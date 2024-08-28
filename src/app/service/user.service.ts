@@ -18,7 +18,7 @@ export class UserService {
   public getAllUsers(data: GetUserWithSearchPaging): Observable<User> {
     let params = new HttpParams()
     .set('page', data.page ? data.page : '')
-    .set('limit', data.limit ? data.limit : '')
+    .set('limit', '5')
     .set('username', data.username ? data.username : '')
     .set('phone', data.phone ? data.phone : '')
     .set('identificationNumber', data.identificationNumber ? data.identificationNumber : '')

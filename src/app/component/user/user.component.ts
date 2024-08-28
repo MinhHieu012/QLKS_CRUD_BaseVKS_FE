@@ -32,11 +32,11 @@ export class UserComponent {
   totalItem: number = 0;
   totalPage: number = 0;
   page: number = 1;
-  limit: number = 2;
+  limit: number = 5;
 
   stateGetUserWithSearchPaging: GetUserWithSearchPaging = {
     page: 1,
-    limit: 3,
+    limit: 5,
     username: '',
     phone: '',
     identificationNumber: ''
@@ -44,9 +44,9 @@ export class UserComponent {
 
   getAllUsers() {
     this.userService.getAllUsers(this.stateGetUserWithSearchPaging).subscribe((data: any) => {
-      this.listUser = data.result;
-      this.getToTalItem(); 
-      this.getTotalPages();
+      this.listUser = data.result.content;
+      this.totalItem = data.result.totalElements;
+      this.totalPage = data.result.totalPages;
     });
   }
 
@@ -117,16 +117,6 @@ export class UserComponent {
         this.listUser = data.result;
       }
     })
-  }
-
-  getTotalPages() {
-    this.totalPage = Math.ceil(Number(this.listUser.length) / Number(this.limit));
-    console.log(this.totalPage, 'Tổng số trang hàm getTotalPages()');
-  }
-
-  getToTalItem() {
-    this.totalItem = this.listUser.length;
-    console.log(this.totalItem, 'Tổng số user hàm getToTalItem()');
   }
 
   onPageChange(event: any) {
