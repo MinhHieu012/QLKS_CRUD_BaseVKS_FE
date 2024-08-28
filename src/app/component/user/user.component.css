@@ -73,17 +73,17 @@
 }
 
 .user_working {
-  color: #56F000;
+  color: #56f000;
   font-weight: bold;
 }
 
 .user_locking {
-  color: #FF3838;
+  color: #ff3838;
   font-weight: bold;
 }
 
 .role_user {
-  color: #3B82F6;
+  color: #3b82f6;
   font-weight: bold;
 }
 
@@ -93,6 +93,30 @@
 }
 
 .role_manager {
-  color: #FFB302;
+  color: #ffb302;
   font-weight: bold;
+}
+
+.progress-spinner {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.progress-spinner:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }

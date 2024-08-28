@@ -35,6 +35,8 @@ export class UserComponent {
   page: number = 1;
   limit: number = 5;
 
+  isLoading: boolean = true;
+
   stateGetUserWithSearchPaging: GetUserWithSearchPaging = {
     page: 1,
     limit: 5,
@@ -44,18 +46,21 @@ export class UserComponent {
   }
 
   getUserWithSearchAndPaging() {
+    this.isLoading = true;
     this.userService.getAllUsers(this.stateGetUserWithSearchPaging).subscribe((data: any) => {
       if (data.result.content.length === 0) {
         this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy người dùng nào!' });
+        this.isLoading = false;
       } 
       if (this.isFirstTimeSearch === true && data.result.content.length > 0 && this.stateGetUserWithSearchPaging.username !== '' || this.stateGetUserWithSearchPaging.phone !== '' || this.stateGetUserWithSearchPaging.identificationNumber !== '') {
         this.messageService.add({ severity: 'success', summary: 'Tìm kiếm', detail: 'Đã tìm thấy user!' });
+        this.isLoading = false;
       }
       this.listUser = data.result.content;
       this.totalItem = data.result.totalElements;
       this.totalPage = data.result.totalPages;
       console.log(this.isFirstTimeSearch);
-      
+      this.isLoading = false;
     });
   }
 
