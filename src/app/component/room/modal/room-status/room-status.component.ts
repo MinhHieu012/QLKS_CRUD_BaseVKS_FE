@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RoomService } from '../../../../service/room.service';
 import { RoomStatus, RoomTypeForDropdown, RoomUpdate } from '../../../../interface/room.interface';
-import { MessageService } from 'primeng/api';
+import { RoomService } from '../../../../service/room.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-room-update',
-  templateUrl: './room-update.component.html',
-  styleUrl: './room-update.component.css'
+  selector: 'app-room-status',
+  templateUrl: './room-status.component.html',
+  styleUrl: './room-status.component.css'
 })
-export class RoomUpdateComponent {
+export class RoomStatusComponent {
   constructor(
     private roomService: RoomService,
     private messageService: MessageService
@@ -25,13 +25,13 @@ export class RoomUpdateComponent {
     ];
   }
 
-  display: boolean = false;
-  errorMessage: String = '';
-  fieldErrors: any = {};
-
   roomStatus: RoomStatus[] = [];
   roomType: RoomTypeForDropdown[] = [];
 
+  errorMessage: String = '';
+  fieldErrors: any = {};
+
+  display: boolean = false;
   @Input() roomDataIdFromParent: String = '';
   @Input() roomDataNameFromParent: String = '';
   @Input() roomDataRoomNumberFromParent: String = '';
@@ -71,45 +71,19 @@ export class RoomUpdateComponent {
     })
   }
 
-  handleUpdateRoom() {
-    this.roomService.updateRoom(this.dataRoomSendToUpdate).subscribe({
+  handleUpdateStatusRooom() {
+    this.roomService.updateRoomStatus(this.dataRoomSendToUpdate.id, this.dataRoomSendToUpdate.status).subscribe({
       next: () => {
+        console.log(this.dataRoomSendToUpdate.id, this.dataRoomSendToUpdate.status);
         this.display = false;
-        this.callGetRoomBackAfterAddUpdate.emit();
-        this.showUpdateSuccessNotification();
-        this.clearModalDataUpdateRoom();
       },
       error: (error: HttpErrorResponse) => {
         if (error.error) {
-          this.showUpdateFailedNotification();
           this.fieldErrors = error.error.result;
         } else {
           this.errorMessage = "Lỗi không xác định!";
         }
       }
     })
-  }
-
-  clearModalDataUpdateRoom() {
-    this.dataRoomSendToUpdate = {
-      id: 0,
-      name: '',
-      roomNumber: '',
-      floor: '',
-      roomTypeId: 0,
-      description: '',
-      price: '',
-      status: ''
-    }
-    this.fieldErrors = {};
-    this.errorMessage = '';
-  }
-
-  showUpdateSuccessNotification() {
-    this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật phòng thành công!' });
-  }
-
-  showUpdateFailedNotification() {
-    this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật phòng thất bại!' });
   }
 }

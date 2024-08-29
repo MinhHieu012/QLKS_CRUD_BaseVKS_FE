@@ -72,7 +72,7 @@
   <div class="table_header">
     <h3 class="title_room">Danh sách phòng</h3>
     <p-toast></p-toast>
-    <app-room-add></app-room-add>
+    <app-room-add (callGetRoomBackAfterAddUpdate)="getAllRoomAgain()"></app-room-add>
   </div>
   <div class="table_body">
     <div class="card">
@@ -117,7 +117,7 @@
             <td>{{ room.floor }}</td>
             <td>{{ room.roomType.name }}</td>
             <td>{{ room.description }}</td>
-            <td>{{ room.price }}</td>
+            <td>{{ room.price | currency: "VND" }}</td>
             <td *ngIf="room.status === 'ACTIVE'">Đang rảnh</td>
             <td *ngIf="room.status === 'LOCK'">Bị khóa</td>
             <td *ngIf="room.status === 'USING'">Đang sử dụng</td>
@@ -126,9 +126,28 @@
                <i class="pi pi-times"></i>
             </td>
             <td *ngIf="room.status === 'LOCK' || room.status === 'ACTIVE' || room.status === 'CLEANING'" class="action_icon">
-               <app-room-update></app-room-update>
-               <i *ngIf="room.status === 'LOCK'" class="pi pi-unlock"></i>
-               <i *ngIf="room.status === 'ACTIVE'" class="pi pi-lock"></i>
+              <app-room-update
+                [roomDataIdFromParent]="room.id"
+                [roomDataNameFromParent]="room.name"
+                [roomDataRoomNumberFromParent]="room.roomNumber"
+                [roomDataFloorFromParent]="room.floor"
+                [roomDataRoomTypeIdFromParent]="room.roomType.id"
+                [roomDataDescriptionFromParent]="room.description"
+                [roomDataPriceFromParent]="room.price"
+                [roomDataStatusFromParent]="room.status"
+                (callGetRoomBackAfterAddUpdate)="getAllRoomAgain()"
+              ></app-room-update>
+              <app-room-status
+                [roomDataIdFromParent]="room.id"
+                [roomDataNameFromParent]="room.name"
+                [roomDataRoomNumberFromParent]="room.roomNumber"
+                [roomDataFloorFromParent]="room.floor"
+                [roomDataRoomTypeIdFromParent]="room.roomType.id"
+                [roomDataDescriptionFromParent]="room.description"
+                [roomDataPriceFromParent]="room.price"
+                [roomDataStatusFromParent]="room.status"
+                (callGetRoomBackAfterAddUpdate)="getAllRoomAgain()"
+              ></app-room-status>
             </td>
           </tr>
         </ng-template>

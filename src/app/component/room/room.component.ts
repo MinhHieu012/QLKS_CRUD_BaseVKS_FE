@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Room, RoomStatus, RoomTypeForDropdown } from '../../interface/room.interface';
 import { RoomService } from '../../service/room.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-room',
@@ -11,7 +12,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 export class RoomComponent {
 
   constructor(
-    private roomService: RoomService
+    private roomService: RoomService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) { }
 
   ngOnInit() {
@@ -25,6 +28,8 @@ export class RoomComponent {
   }
 
   isLoading: boolean = true;
+  errorMessage: String = '';
+  fieldErrors: any = {};
 
   roomStatus: RoomStatus[] = [];
   roomType: RoomTypeForDropdown[] = [];
@@ -44,5 +49,9 @@ export class RoomComponent {
       this.listRoom = data.result;
       this.isLoading = false;
     })
+  }
+
+  getAllRoomAgain() {
+    this.getAllRoom();
   }
 }

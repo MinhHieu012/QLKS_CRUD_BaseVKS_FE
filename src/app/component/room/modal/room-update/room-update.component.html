@@ -18,7 +18,7 @@
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập tên phòng"
-        required
+        [(ngModel)]="dataRoomSendToUpdate.name"
       />
     </div>
     <div class="add_input_body">
@@ -31,9 +31,12 @@
         id="roomNumber"
         class="flex-auto"
         autocomplete="off"
-        required
         placeholder="Nhập số phòng"
+        [(ngModel)]="dataRoomSendToUpdate.roomNumber"
       />
+    </div>
+    <div *ngIf="fieldErrors.roomNumber" class="field-error">
+      {{ fieldErrors.roomNumber }}
     </div>
     <div class="add_input_body">
       <label for="floor" class="font-semibold w-6rem">
@@ -46,8 +49,8 @@
         class="flex-auto"
         autocomplete="off"
         type="email"
-        required
         placeholder="Nhập số tầng"
+        [(ngModel)]="dataRoomSendToUpdate.floor"
       />
     </div>
     <div class="add_input_body">
@@ -57,12 +60,17 @@
       </label>
       <p-dropdown
         optionLabel="name"
+        optionValue="id"
         [options]="roomType"
         class="dropdown_search"
         placeholder="Chọn loại phòng"
         autoWidth="false"
         [style]="{ width: '100%' }"
+        [(ngModel)]="dataRoomSendToUpdate.roomTypeId"
       />
+    </div>
+    <div *ngIf="fieldErrors.roomTypeExist" class="field-error">
+      {{ fieldErrors.roomTypeExist }}
     </div>
     <div class="add_input_body">
       <label for="dateOfBirth" class="font-semibold w-6rem"> Mô tả </label>
@@ -72,6 +80,7 @@
         cols="27"
         pInputTextarea
         placeholder="Nhập mô tả phòng"
+        [(ngModel)]="dataRoomSendToUpdate.description"
       ></textarea>
     </div>
     <div class="add_input_body">
@@ -84,8 +93,8 @@
         id="price"
         class="flex-auto"
         autocomplete="off"
-        required
         placeholder="Nhập giá/giờ"
+        [(ngModel)]="dataRoomSendToUpdate.price"
       />
     </div>
     <div class="add_input_body">
@@ -95,11 +104,13 @@
       </label>
       <p-dropdown
         optionLabel="code"
+        optionValue="name"
         [options]="roomStatus"
         class="dropdown_search"
         placeholder="Chọn trạng thái phòng"
         autoWidth="false"
         [style]="{ width: '100%' }"
+        [(ngModel)]="dataRoomSendToUpdate.status"
       />
     </div>
     <p-button class="btn_confirm_add" (click)="handleUpdateRoom()">

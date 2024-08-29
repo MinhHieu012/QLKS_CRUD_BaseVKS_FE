@@ -61,10 +61,10 @@ export class UserUpdateComponent {
   handleUpdateUser() {
     this.userService.updateUser(this.dataUserSendToUpdate).subscribe({
       next: () => {
-        this.clearModalDataUpdateUser();
-        this.callGetCustomersBackAfterUpdate.emit();
         this.display = false;
+        this.callGetCustomersBackAfterUpdate.emit();
         this.showUpdateSuccessNotification();
+        this.clearModalDataUpdateUser();
       },
       error: (error: HttpErrorResponse) => {
         if (error.error) {
@@ -86,6 +86,8 @@ export class UserUpdateComponent {
       identificationNumber: '',
       dateOfBirth: ''
     }
+    this.fieldErrors = {};
+    this.errorMessage = '';
   }
 
   showUpdateSuccessNotification() {

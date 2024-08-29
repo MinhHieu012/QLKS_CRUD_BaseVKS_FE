@@ -30,6 +30,7 @@ import { RoomAddComponent } from './component/room/modal/room-add/room-add.compo
 import { RoomUpdateComponent } from './component/room/modal/room-update/room-update.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RoomStatusComponent } from './component/room/modal/room-status/room-status.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     UserAddComponent,
     UserUpdateComponent,
     RoomAddComponent,
-    RoomUpdateComponent
+    RoomUpdateComponent,
+    RoomStatusComponent
   ],
   imports: [
     BrowserModule,

@@ -7,12 +7,24 @@ export interface Room {
      roomStatus: RoomStatus;
 }
 
-export interface User {
-     username: String,
-     identificationNumber: String,
-     dateOfBirth: Date,
-     role: String,
-     status: String
+export interface RoomAdd {
+     name: String;
+     roomNumber: Number | String;
+     floor: Number | String;
+     roomTypeId: Number;
+     description: String;
+     price: Number | String;
+}
+
+export interface RoomUpdate {
+     id: Number;
+     name: String;
+     roomNumber: Number | String;
+     floor: Number | String;
+     roomTypeId: Number;
+     description: String;
+     price: Number | String;
+     status: String;
 }
 
 export interface RoomStatus {

@@ -1,8 +1,8 @@
-<p-button class="btn_add" (click)="showDialog()"> + Thêm </p-button>
+<i class="pi pi-check-circle" (click)="showDialog()"></i>
 
 <div class="add_input">
   <p-dialog
-    header="Thêm phòng"
+    header="Cập nhật trạng thái phòng"
     [modal]="true"
     [(visible)]="display"
     [style]="{ width: '33rem' }"
@@ -18,7 +18,8 @@
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập tên phòng"
-        [(ngModel)]="dataRoomAdd.name"
+        disabled
+        [(ngModel)]="dataRoomSendToUpdate.name"
       />
     </div>
     <div class="add_input_body">
@@ -31,13 +32,10 @@
         id="roomNumber"
         class="flex-auto"
         autocomplete="off"
-        type="number"
         placeholder="Nhập số phòng"
-        [(ngModel)]="dataRoomAdd.roomNumber"
+        disabled
+        [(ngModel)]="dataRoomSendToUpdate.roomNumber"
       />
-    </div>
-    <div *ngIf="fieldErrors.roomNumber" class="field-error">
-      {{ fieldErrors.roomNumber }}
     </div>
     <div class="add_input_body">
       <label for="floor" class="font-semibold w-6rem">
@@ -49,9 +47,10 @@
         id="floor"
         class="flex-auto"
         autocomplete="off"
-        type="number"
+        type="email"
+        disabled
         placeholder="Nhập số tầng"
-        [(ngModel)]="dataRoomAdd.floor"
+        [(ngModel)]="dataRoomSendToUpdate.floor"
       />
     </div>
     <div class="add_input_body">
@@ -64,24 +63,24 @@
         optionValue="id"
         [options]="roomType"
         class="dropdown_search"
+        optionLabel="name"
         placeholder="Chọn loại phòng"
         autoWidth="false"
         [style]="{ width: '100%' }"
-        [(ngModel)]="dataRoomAdd.roomTypeId"
+        [disabled]="true"
+        [(ngModel)]="dataRoomSendToUpdate.roomTypeId"
       />
-    </div>
-    <div *ngIf="fieldErrors.roomTypeExist" class="field-error">
-      {{ fieldErrors.roomTypeExist }}
     </div>
     <div class="add_input_body">
       <label for="dateOfBirth" class="font-semibold w-6rem"> Mô tả </label>
       <textarea
         class="textarea_desc"
-        rows="3"
+        rows="2"
         cols="27"
         pInputTextarea
         placeholder="Nhập mô tả phòng"
-        [(ngModel)]="dataRoomAdd.description"
+        disabled
+        [(ngModel)]="dataRoomSendToUpdate.description"
       ></textarea>
     </div>
     <div class="add_input_body">
@@ -94,13 +93,30 @@
         id="price"
         class="flex-auto"
         autocomplete="off"
-        type="number"
+        required
         placeholder="Nhập giá/giờ"
-        [(ngModel)]="dataRoomAdd.price"
+        [disabled]="true"
+        [(ngModel)]="dataRoomSendToUpdate.price"
       />
     </div>
-    <p-button class="btn_confirm_add" (click)="handleAddRoom()">
-      + Thêm
+    <div class="add_input_body">
+     <label for="roomType" class="font-semibold w-6rem">
+       Trạng thái
+       <span class="text-red">(*)</span>
+     </label>
+     <p-dropdown
+       optionLabel="code"
+       optionValue="name"
+       [options]="roomStatus"
+       class="dropdown_search"
+       placeholder="Chọn trạng thái phòng"
+       autoWidth="false"
+       [style]="{ width: '100%' }"
+       [(ngModel)]="dataRoomSendToUpdate.status"
+     />
+   </div>
+    <p-button class="btn_confirm_add" (click)="handleUpdateStatusRooom()">
+     <i class="pi pi-user-edit icon-update"></i>Cập nhật
     </p-button>
   </p-dialog>
 </div>

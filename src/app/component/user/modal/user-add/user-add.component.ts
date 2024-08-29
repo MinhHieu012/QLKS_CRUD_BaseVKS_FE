@@ -37,10 +37,10 @@ export class UserAddComponent {
   handleAddUser() {
     this.userService.addUser(this.dataAddUser).subscribe({
       next: () => {
-        this.clearModalDataAddUser();
-        this.callGetUserBackAfterAdd.emit();
         this.display = false;
+        this.callGetUserBackAfterAdd.emit();
         this.showAddSuccessNotification();
+        this.clearModalDataAddUser();
       },
       error: (error: HttpErrorResponse) => {
         if (error.error) {
@@ -62,6 +62,8 @@ export class UserAddComponent {
       identificationNumber: '',
       dateOfBirth: new Date()
     }
+    this.fieldErrors = {};
+    this.errorMessage = '';
   }
 
   showAddSuccessNotification() {
