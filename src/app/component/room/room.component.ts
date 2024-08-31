@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Room, RoomStatus, RoomTypeForDropdown } from '../../interface/room.interface';
+import { GetRoomWithSearchPaging, Room, RoomStatus, RoomTypeForDropdown } from '../../interface/room.interface';
 import { RoomService } from '../../service/room.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -36,22 +36,43 @@ export class RoomComponent {
 
   listRoom: Room[] = [];
 
+  totalItem: number = 0;
+  totalPage: number = 0;
+  page: number = 1;
+  limit: number = 3;
+  stateGetRoomWithSearchPaging: GetRoomWithSearchPaging = {
+    page: 1,
+    limit: 3,
+    name: '',
+    roomNumber: '',
+    floor: '',
+    roomTypeId: '',
+    status: ''
+  }
+
   getAllRoomTypeForDropdown() {
     this.roomService.getAllRoomTypeForDropdown().subscribe((data: any) => {
       this.roomType = data.result;
-      this.getAllRoom();
+      this.getUserWithSearchAndPaging();
     })
   }
 
-  getAllRoom() {
+  getUserWithSearchAndPaging() {
     this.isLoading = true;
-    this.roomService.getAllRoom().subscribe((data: any) => {
-      this.listRoom = data.result;
+    this.roomService.getRoomWithSearchAndPaging(this.stateGetRoomWithSearchPaging).subscribe((data: any) => {
+      this.listRoom = data.result.content;
+      this.totalItem = data.result.totalElements;
+      this.totalPage = data.result.totalPages;
       this.isLoading = false;
     })
   }
 
   getAllRoomAgain() {
-    this.getAllRoom();
+    this.getUserWithSearchAndPaging();
+  }
+
+  onPageChange(event: any) {
+    this.stateGetRoomWithSearchPaging.page = event.page + 1;
+    this.getUserWithSearchAndPaging();
   }
 }

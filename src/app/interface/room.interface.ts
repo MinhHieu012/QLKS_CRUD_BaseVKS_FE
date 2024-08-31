@@ -36,3 +36,13 @@ export interface RoomTypeForDropdown {
      id: Number;
      name: String;
 }
+
+export interface GetRoomWithSearchPaging {
+     limit: number,
+     page: number,
+     name: string,
+     roomNumber: string | number | boolean,
+     floor: string | number | boolean,
+     roomTypeId: string | number | boolean,
+     status: string | number | boolean
+}

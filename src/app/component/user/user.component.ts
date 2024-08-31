@@ -59,7 +59,6 @@ export class UserComponent {
       this.listUser = data.result.content;
       this.totalItem = data.result.totalElements;
       this.totalPage = data.result.totalPages;
-      console.log(this.isFirstTimeSearch);
       this.isLoading = false;
     });
   }

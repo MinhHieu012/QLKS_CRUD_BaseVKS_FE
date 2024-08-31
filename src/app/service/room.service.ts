@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Room, RoomAdd, RoomTypeForDropdown, RoomUpdate } from '../interface/room.interface';
+import { GetRoomWithSearchPaging, Room, RoomAdd, RoomTypeForDropdown, RoomUpdate } from '../interface/room.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage-service.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
+  public message$: BehaviorSubject<string> = new BehaviorSubject('');
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService
@@ -16,8 +18,16 @@ export class RoomService {
     return this.http.get<RoomTypeForDropdown>('http://localhost:8080/admin/quanlykieuphong');
   }
 
-  public getAllRoom() {
-    return this.http.get<Room>('http://localhost:8080/admin/quanlyphong');
+  public getRoomWithSearchAndPaging(data: GetRoomWithSearchPaging) {
+    let params = new HttpParams()
+    .set('page', data.page ? data.page : '')
+    .set('limit', '3')
+    .set('name', data.name ? data.name : '')
+    .set('roomNumber', data.roomNumber ? data.roomNumber : '')
+    .set('floor', data.floor ? data.floor : '')
+    .set('roomTypeId', data.roomTypeId ? data.roomTypeId : '')
+    .set('status', data.status ? data.status : '');
+    return this.http.get<Room>('http://localhost:8080/admin/quanlyphong/filter', {params});
   }
 
   public addRoom(dataAddRoom: RoomAdd) {
