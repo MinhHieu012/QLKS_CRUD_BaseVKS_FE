@@ -36,6 +36,13 @@ export class RoomComponent {
 
   listRoom: Room[] = [];
 
+  name?: string | number | boolean;
+  roomNumber?: string | number | boolean;
+  floor?: string | number | boolean;
+  roomTypeId?: string | number | boolean;
+  status?: string | number | boolean;
+  isFirstTimeSearch: boolean = true;
+
   totalItem: number = 0;
   totalPage: number = 0;
   page: number = 1;
@@ -53,13 +60,21 @@ export class RoomComponent {
   getAllRoomTypeForDropdown() {
     this.roomService.getAllRoomTypeForDropdown().subscribe((data: any) => {
       this.roomType = data.result;
-      this.getUserWithSearchAndPaging();
+      this.getRoomWithSearchAndPaging();
     })
   }
 
-  getUserWithSearchAndPaging() {
+  getRoomWithSearchAndPaging() {
     this.isLoading = true;
     this.roomService.getRoomWithSearchAndPaging(this.stateGetRoomWithSearchPaging).subscribe((data: any) => {
+      if (data.result.content.length === 0) {
+        this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy phòng nào!' });
+        this.isLoading = false;
+      }
+      if (this.isFirstTimeSearch === true && data.result.content.length > 0 && this.stateGetRoomWithSearchPaging.name !== '' || this.stateGetRoomWithSearchPaging.roomNumber !== '' || this.stateGetRoomWithSearchPaging.floor !== '' || this.stateGetRoomWithSearchPaging.roomTypeId !== '' || this.stateGetRoomWithSearchPaging.status !== '') {
+        this.messageService.add({ severity: 'success', summary: 'Tìm kiếm', detail: 'Đã tìm thấy phòng!' });
+        this.isLoading = false;
+      }
       this.listRoom = data.result.content;
       this.totalItem = data.result.totalElements;
       this.totalPage = data.result.totalPages;
@@ -68,11 +83,38 @@ export class RoomComponent {
   }
 
   getAllRoomAgain() {
-    this.getUserWithSearchAndPaging();
+    this.getRoomWithSearchAndPaging();
   }
 
   onPageChange(event: any) {
     this.stateGetRoomWithSearchPaging.page = event.page + 1;
-    this.getUserWithSearchAndPaging();
+    this.isFirstTimeSearch = false;
+    this.getRoomWithSearchAndPaging();
+  }
+
+  handleSearch() {
+    this.stateGetRoomWithSearchPaging.name = this.name || '';
+    this.stateGetRoomWithSearchPaging.roomNumber = this.roomNumber || '';
+    this.stateGetRoomWithSearchPaging.floor = this.floor || '';
+    this.stateGetRoomWithSearchPaging.roomTypeId = this.roomTypeId || '';
+    this.stateGetRoomWithSearchPaging.status = this.status || '';
+    this.isFirstTimeSearch = true;
+    this.getRoomWithSearchAndPaging();
+  }
+
+  handleResetFilter() {
+    this.stateGetRoomWithSearchPaging.name = '';
+    this.stateGetRoomWithSearchPaging.roomNumber = '';
+    this.stateGetRoomWithSearchPaging.floor = '';
+    this.stateGetRoomWithSearchPaging.roomTypeId = '';
+    this.stateGetRoomWithSearchPaging.status = '';
+    this.name = '';
+    this.roomNumber = '';
+    this.floor = '';
+    this.roomTypeId = '';
+    this.status = '';
+    this.getRoomWithSearchAndPaging();
+    this.isFirstTimeSearch = true;
+    this.messageService.add({ severity: 'success', summary: 'Xóa bộ lọc', detail: 'Đã xóa bộ lọc tìm kiếm!' });
   }
 }

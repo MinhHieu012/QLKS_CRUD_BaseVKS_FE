@@ -3,7 +3,10 @@
 </div>
 
 <div class="filter">
-  <h3 class="title_filter">Bộ lọc tìm kiếm</h3>
+  <div class="filter_header">
+    <h3 class="title_filter">Bộ lọc tìm kiếm</h3>
+    <p-button (click)="handleResetFilter()"><i class="pi pi-undo icon_search_reset"></i></p-button>
+  </div>
   <div class="filter_body">
     <div class="filter_input">
       <p>Họ tên:</p>
@@ -38,7 +41,7 @@
   </div>
 </div>
 
-<div class="progress-spinner" *ngIf="isLoading==true">
+<div class="progress-spinner" *ngIf="isLoading == true">
   <p-progressSpinner></p-progressSpinner>
 </div>
 
@@ -136,7 +139,8 @@
       (onPageChange)="onPageChange($event)"
       [rows]="limit"
       [totalRecords]="totalItem"
-      [first]="(this.page - 1) * limit">
+      [first]="(this.page - 1) * limit"
+    >
     </p-paginator>
   </div>
 </div>

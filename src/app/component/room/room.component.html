@@ -17,6 +17,8 @@
           type="text"
           pInputText
           placeholder="Nhập tên phòng"
+          [(ngModel)]="name"
+          (keyup.enter)="handleSearch()"
         />
       </div>
       <div class="room_number_search">
@@ -26,6 +28,8 @@
           type="text"
           pInputText
           placeholder="Nhập số phòng"
+          [(ngModel)]="roomNumber"
+          (keyup.enter)="handleSearch()"
         />
       </div>
       <div class="floor_search">
@@ -35,6 +39,8 @@
           type="text"
           pInputText
           placeholder="Nhập số tầng"
+          [(ngModel)]="floor"
+          (keyup.enter)="handleSearch()"
         />
       </div>
     </div>
@@ -43,24 +49,34 @@
         <span>Loại phòng:</span>
         <p-dropdown
           optionLabel="name"
+          optionValue="id"
           [options]="roomType"
           class="dropdown_search"
           placeholder="Chọn loại phòng"
           autoWidth="false"
           [style]="{ width: '100%' }"
+          [(ngModel)]="roomTypeId"
+          (keyup.enter)="handleSearch()"
         />
       </div>
       <div class="status_search">
         <span>Trạng thái:</span>
         <p-dropdown
           optionLabel="code"
+          optionValue="name"
           [options]="roomStatus"
           class="dropdown_search"
           placeholder="Chọn trạng thái phòng"
           [style]="{ width: '100%' }"
+          [(ngModel)]="status"
+          (keyup.enter)="handleSearch()"
         />
       </div>
-      <p-button class="btn_search">Tìm kiếm</p-button>
+      <div class="btn_search_reset">
+        <p-button class="btn_search" (click)="handleSearch()">Tìm kiếm</p-button>
+        <p-button (click)="handleResetFilter()"><i class="pi pi-undo icon_search_reset"></i></p-button>
+      </div>
+      
     </div>
   </div>
 </div>

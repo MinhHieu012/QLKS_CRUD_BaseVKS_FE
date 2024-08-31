@@ -40,7 +40,7 @@ export interface RoomTypeForDropdown {
 export interface GetRoomWithSearchPaging {
      limit: number,
      page: number,
-     name: string,
+     name: string | number | boolean,
      roomNumber: string | number | boolean,
      floor: string | number | boolean,
      roomTypeId: string | number | boolean,

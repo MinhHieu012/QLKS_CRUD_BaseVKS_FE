@@ -10,10 +10,6 @@
   margin-top: 20px;
 }
 
-.title_filter {
-  margin-bottom: 18px;
-}
-
 .filter_body {
   display: flex;
 }
@@ -45,7 +41,7 @@
 }
 
 .table_body {
-  height: 375px;
+  height: 320px;
 }
 
 .table_body th {
@@ -119,4 +115,17 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.filter_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.icon_search_reset {
+  font-size: 21px;
+  cursor: pointer;
+  color: white;
 }

@@ -47,7 +47,7 @@ export class UserComponent {
 
   getUserWithSearchAndPaging() {
     this.isLoading = true;
-    this.userService.getAllUsers(this.stateGetUserWithSearchPaging).subscribe((data: any) => {
+    this.userService.getAllUsers(this.stateGetUserWithSearchPaging).subscribe((data: any) => {      
       if (data.result.content.length === 0) {
         this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy người dùng nào!' });
         this.isLoading = false;
@@ -133,5 +133,17 @@ export class UserComponent {
     this.stateGetUserWithSearchPaging.page = event.page + 1;
     this.isFirstTimeSearch = false;
     this.getUserWithSearchAndPaging();
+  }
+
+  handleResetFilter() {
+    this.stateGetUserWithSearchPaging.username = '';
+    this.stateGetUserWithSearchPaging.phone = '';
+    this.stateGetUserWithSearchPaging.identificationNumber = '';
+    this.username = '';
+    this.phone = '';
+    this.identificationNumber = '';
+    this.getUserWithSearchAndPaging();
+    this.isFirstTimeSearch = true;
+    this.messageService.add({ severity: 'success', summary: 'Tìm kiếm', detail: 'Đã xóa bộ lọc tìm kiếm!' });
   }
 }

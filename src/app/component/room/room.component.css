@@ -141,4 +141,15 @@
 
 i {
   cursor: pointer;
+  font-size: 21px;
+}
+
+.btn_search_reset {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.icon_search_reset {
+  color: white;
 }
