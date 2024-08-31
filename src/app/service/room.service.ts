@@ -32,6 +32,6 @@ export class RoomService {
 
   public updateRoomStatus(id: Number, status: String) {
     const headers = this.localStorageService.header();
-    return this.http.put<Room>(`http://localhost:8080/admin/quanlyphong/updatestatus/${id}?status=${status}`, {}, {headers});
+    return this.http.put<Room>(`http://localhost:8080/admin/quanlyphong/roomstatus/${id}?status=${status}`, {}, {headers});
   }
 }

@@ -74,8 +74,10 @@ export class RoomStatusComponent {
   handleUpdateStatusRooom() {
     this.roomService.updateRoomStatus(this.dataRoomSendToUpdate.id, this.dataRoomSendToUpdate.status).subscribe({
       next: () => {
-        console.log(this.dataRoomSendToUpdate.id, this.dataRoomSendToUpdate.status);
         this.display = false;
+        this.callGetRoomBackAfterAddUpdate.emit();
+        this.showUpdateSuccessNotification();
+        this.clearModalDataUpdateRoom();
       },
       error: (error: HttpErrorResponse) => {
         if (error.error) {
@@ -85,5 +87,28 @@ export class RoomStatusComponent {
         }
       }
     })
+  }
+
+  clearModalDataUpdateRoom() {
+    this.dataRoomSendToUpdate = {
+      id: 0,
+      name: '',
+      roomNumber: '',
+      floor: '',
+      roomTypeId: 0,
+      description: '',
+      price: '',
+      status: ''
+    }
+    this.fieldErrors = {};
+    this.errorMessage = '';
+  }
+
+  showUpdateSuccessNotification() {
+    this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật phòng thành công!' });
+  }
+
+  showUpdateFailedNotification() {
+    this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật phòng thất bại!' });
   }
 }
