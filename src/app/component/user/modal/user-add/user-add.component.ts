@@ -3,6 +3,7 @@ import { UserAdd } from '../../../../interface/user.interface';
 import { UserService } from '../../../../service/user.service';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-add',
@@ -13,9 +14,28 @@ export class UserAddComponent {
   constructor(
     private userService: UserService,
     private messageService: MessageService,
-  ) { }
+    private fb: FormBuilder
+  ) {
+    this.userAddForm = this.fb.group({
+      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      identificationNumber: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required]]
+    });
+  }
+
+  ngOnInit() {
+    this.userAddForm.statusChanges.subscribe(status => {
+      this.isSubmitDisabled = status !== 'VALID';
+    });
+  }
 
   @Output() callGetUserBackAfterAdd = new EventEmitter<String>();
+
+  userAddForm: FormGroup;
+  isSubmitDisabled: boolean = true;
 
   errorMessage: String = '';
   fieldErrors: any = {};
@@ -35,7 +55,7 @@ export class UserAddComponent {
   }
 
   handleAddUser() {
-    this.userService.addUser(this.dataAddUser).subscribe({
+    this.userService.addUser(this.userAddForm.value).subscribe({
       next: () => {
         this.display = false;
         this.callGetUserBackAfterAdd.emit();
@@ -64,6 +84,8 @@ export class UserAddComponent {
     }
     this.fieldErrors = {};
     this.errorMessage = '';
+    this.isSubmitDisabled = true;
+    this.userAddForm.reset();
   }
 
   showAddSuccessNotification() {

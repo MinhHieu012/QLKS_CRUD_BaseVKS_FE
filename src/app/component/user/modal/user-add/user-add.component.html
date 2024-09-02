@@ -1,5 +1,6 @@
 <p-button class="btn_add" (click)="showDialog()"> + Thêm </p-button>
 
+<form [formGroup]="userAddForm" (ngSubmit)="handleAddUser()">
 <div class="add_input">
   <p-dialog
     header="Thêm người dùng"
@@ -15,11 +16,15 @@
       <input
         pInputText
         id="username"
+        name="username"
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập username"
-        [(ngModel)]="dataAddUser.username"
+        formControlName="username"
       />
+    </div>
+    <div *ngIf="userAddForm.get('username')?.invalid && userAddForm.get('username')?.touched" class="field-error">
+      <small *ngIf="userAddForm.get('username')?.errors?.['required']">Tên là bắt buộc</small>
     </div>
     <div *ngIf="fieldErrors.username" class="field-error">
       {{ fieldErrors.username }}
@@ -32,11 +37,15 @@
       <input
         pInputText
         id="phone"
+        name="phone"
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập số điện thoại"
-        [(ngModel)]="dataAddUser.phone"
+        formControlName="phone"
       />
+    </div>
+    <div *ngIf="userAddForm.get('phone')?.invalid && userAddForm.get('phone')?.touched" class="field-error">
+      <small *ngIf="userAddForm.get('phone')?.errors?.['required']">Số điện thoại là bắt buộc</small>
     </div>
     <div *ngIf="fieldErrors.phone" class="field-error">
       {{ fieldErrors.phone }}
@@ -49,12 +58,16 @@
       <input
         pInputText
         id="email"
+        name="email"
         class="flex-auto"
         autocomplete="off"
         type="email"
         placeholder="Nhập email"
-        [(ngModel)]="dataAddUser.email"
+        formControlName="email"
       />
+    </div>
+    <div *ngIf="userAddForm.get('email')?.invalid && userAddForm.get('email')?.touched" class="field-error">
+      <small *ngIf="userAddForm.get('email')?.errors?.['required']">Email là bắt buộc</small>
     </div>
     <div *ngIf="fieldErrors.email" class="field-error">
       {{ fieldErrors.email }}
@@ -67,11 +80,15 @@
       <p-password
         [toggleMask]="true"
         id="password"
+        name="password"
         type="password"
         placeholder="Nhập mật khẩu"
-        [(ngModel)]="dataAddUser.password"
+        formControlName="password"
       >
       </p-password>
+    </div>
+    <div *ngIf="userAddForm.get('password')?.invalid && userAddForm.get('password')?.touched" class="field-error">
+      <small *ngIf="userAddForm.get('password')?.errors?.['required']">Mật khẩu là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="dateOfBirth" class="font-semibold w-6rem">
@@ -81,12 +98,16 @@
       <input
         pInputText
         id="dateOfBirth"
+        name="dateOfBirth"
         class="flex-auto"
         autocomplete="off"
         type="date"
         placeholder="Nhập ngày sinh"
-        [(ngModel)]="dataAddUser.dateOfBirth"
+        formControlName="dateOfBirth"
       />
+    </div>
+    <div *ngIf="userAddForm.get('dateOfBirth')?.invalid && userAddForm.get('dateOfBirth')?.touched" class="field-error">
+      <small *ngIf="userAddForm.get('dateOfBirth')?.errors?.['required']">Ngày sinh là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="identificationNumber" class="font-semibold w-6rem">
@@ -96,11 +117,15 @@
       <input
         pInputText
         id="identificationNumber"
+        name="identificationNumber"
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập số CMND/CCCD"
-        [(ngModel)]="dataAddUser.identificationNumber"
+        formControlName="identificationNumber"
       />
+    </div>
+    <div *ngIf="userAddForm.get('identificationNumber')?.invalid && userAddForm.get('identificationNumber')?.touched" class="field-error">
+      <small *ngIf="userAddForm.get('identificationNumber')?.errors?.['required']">Số CMND/CCCD là bắt buộc</small>
     </div>
     <div
       *ngIf="fieldErrors.identificationNumber"
@@ -108,8 +133,9 @@
     >
       {{ fieldErrors.identificationNumber }}
     </div>
-    <p-button class="btn_confirm_add" (click)="handleAddUser()">
+    <p-button class="btn_confirm_add" [disabled]="isSubmitDisabled" (click)="handleAddUser()">
       + Thêm
     </p-button>
   </p-dialog>
 </div>
+</form>

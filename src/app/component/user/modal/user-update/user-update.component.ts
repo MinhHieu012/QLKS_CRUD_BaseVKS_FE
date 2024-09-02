@@ -3,6 +3,7 @@ import { UserUpdate } from '../../../../interface/user.interface';
 import { UserService } from '../../../../service/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-update',
@@ -12,12 +13,27 @@ import { MessageService } from 'primeng/api';
 export class UserUpdateComponent {
   constructor(
     private userService: UserService,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    private fb: FormBuilder
+  ) {
+    this.userUpdateForm = this.fb.group({
+      username: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      identificationNumber: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required]]
+    });
+  }
 
   ngOnInit() {
+    this.userUpdateForm.statusChanges.subscribe(status => {
+      this.isSubmitDisabled = status !== 'VALID';
+    });
     this.formatDateFromISODateToYYYYMMDD();
   }
+
+  userUpdateForm: FormGroup;
+  isSubmitDisabled: boolean = true;
 
   display: boolean = false;
   formattedDate: String = '';
@@ -30,6 +46,7 @@ export class UserUpdateComponent {
   @Input() userDataPhoneFromParent: String = '';
   @Input() userDataIdentificationNumberFromParent: String = '';
   @Input() userDataDateOfBirthFromParent: String = '';
+  @Input() userDataStatusFromParent: String = '';
   @Output() callGetCustomersBackAfterUpdate = new EventEmitter<String>();
 
   dataUserSendToUpdate: UserUpdate = {
@@ -49,13 +66,18 @@ export class UserUpdateComponent {
   }
 
   showDialog() {
-    this.dataUserSendToUpdate.id = this.userDataIdFromParent;
-    this.dataUserSendToUpdate.username = this.userDataUsernameFromParent;
-    this.dataUserSendToUpdate.email = this.userDataEmailFromParent;
-    this.dataUserSendToUpdate.phone = this.userDataPhoneFromParent;
-    this.dataUserSendToUpdate.identificationNumber = this.userDataIdentificationNumberFromParent;
-    this.dataUserSendToUpdate.dateOfBirth = this.formattedDate
-    this.display = true;
+    if (this.userDataStatusFromParent === 'LOCKED') {
+      this.display = false;
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "User đang bị khóa! Không thể cập nhật" });
+    } else {
+      this.dataUserSendToUpdate.id = this.userDataIdFromParent;
+      this.dataUserSendToUpdate.username = this.userDataUsernameFromParent;
+      this.dataUserSendToUpdate.email = this.userDataEmailFromParent;
+      this.dataUserSendToUpdate.phone = this.userDataPhoneFromParent;
+      this.dataUserSendToUpdate.identificationNumber = this.userDataIdentificationNumberFromParent;
+      this.dataUserSendToUpdate.dateOfBirth = this.formattedDate
+      this.display = true;
+    }
   }
 
   handleUpdateUser() {
@@ -68,8 +90,8 @@ export class UserUpdateComponent {
       },
       error: (error: HttpErrorResponse) => {
         if (error.error) {
-          this.showUpdateFailedNotification();
-          this.fieldErrors = error.error.result;
+          const fieldErrors = error.error.result;
+          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.locked}` });
         } else {
           this.errorMessage = "Lỗi không xác định!";
         }
@@ -88,13 +110,11 @@ export class UserUpdateComponent {
     }
     this.fieldErrors = {};
     this.errorMessage = '';
+    this.isSubmitDisabled = true;
+    this.userUpdateForm.reset();
   }
 
   showUpdateSuccessNotification() {
     this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Cập nhật người dùng thành công!' });
-  }
-
-  showUpdateFailedNotification() {
-    this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật người dùng thất bại!' });
   }
 }
