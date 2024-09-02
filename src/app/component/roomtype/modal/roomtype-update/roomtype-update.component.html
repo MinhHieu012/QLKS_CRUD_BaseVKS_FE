@@ -1,0 +1,55 @@
+<i class="pi pi-user-edit" (click)="showDialog()"></i>
+
+<div class="add_input">
+  <p-dialog
+    header="Thêm người dùng"
+    [modal]="true"
+    [(visible)]="display"
+    [style]="{ width: '33rem' }"
+  >
+    <div class="add_input_body">
+      <label for="name" class="font-semibold w-6rem">
+        Tên kiểu phòng
+        <span class="text-red">(*)</span>
+      </label>
+      <input
+        pInputText
+        id="name"
+        class="flex-auto"
+        autocomplete="off"
+        placeholder="Nhập tên kiểu phòng"
+        [(ngModel)]="roomTypeDataSendToUpdate.name"
+      />
+    </div>
+    <div class="add_input_body">
+      <label for="phone" class="font-semibold w-6rem">
+        Số người tối đa
+        <span class="text-red">(*)</span>
+      </label>
+      <input
+        pInputText
+        id="maxPeople"
+        type="number"
+        class="flex-auto"
+        autocomplete="off"
+        placeholder="Nhập số người tối đa"
+        [(ngModel)]="roomTypeDataSendToUpdate.maxPeople"
+      />
+    </div>
+    <div class="add_input_body">
+      <label for="description" class="font-semibold w-6rem">Mô tả </label>
+      <textarea
+        class="textarea_desc"
+        rows="3"
+        cols="27"
+        pInputTextarea
+        placeholder="Nhập mô tả loại phòng"
+        [(ngModel)]="roomTypeDataSendToUpdate.description"
+      >
+      </textarea>
+    </div>
+    <p-button class="btn_confirm_add" (click)="handleUpdateRoomType()">
+      <i class="pi pi-user-edit icon-update"></i>Cập nhật
+      </p-button>
+  </p-dialog>
+</div>

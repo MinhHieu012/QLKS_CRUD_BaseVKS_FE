@@ -31,6 +31,8 @@ import { RoomUpdateComponent } from './component/room/modal/room-update/room-upd
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RoomStatusComponent } from './component/room/modal/room-status/room-status.component';
+import { RoomtypeAddComponent } from './component/roomtype/modal/roomtype-add/roomtype-add.component';
+import { RoomtypeUpdateComponent } from './component/roomtype/modal/roomtype-update/roomtype-update.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { RoomStatusComponent } from './component/room/modal/room-status/room-sta
     UserUpdateComponent,
     RoomAddComponent,
     RoomUpdateComponent,
-    RoomStatusComponent
+    RoomStatusComponent,
+    RoomtypeAddComponent,
+    RoomtypeUpdateComponent
   ],
   imports: [
     BrowserModule,

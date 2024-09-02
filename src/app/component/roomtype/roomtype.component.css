@@ -5,3 +5,141 @@
   text-decoration: none;
   color: black;
 }
+
+.filter {
+  margin-top: 20px;
+}
+
+.filter_body {
+  display: flex;
+}
+
+.filter_input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.input_search {
+  width: 387px;
+  padding: 10px;
+}
+
+.btn_search {
+  margin-left: 10px;
+}
+
+.user_table {
+  margin-top: 30px;
+}
+
+.table_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.table_body {
+  height: 380px;
+}
+
+.table_body th {
+  padding: 20px 0 20px 0;
+}
+
+.table_body td {
+  padding: 20px 0 20px 0;
+}
+
+.table_body i {
+  font-size: 21px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.action_column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action_icon {
+  display: flex;
+}
+
+.user_working {
+  color: #56f000;
+  font-weight: bold;
+}
+
+.user_locking {
+  color: #ff3838;
+  font-weight: bold;
+}
+
+.role_user {
+  color: #3b82f6;
+  font-weight: bold;
+}
+
+.role_admin {
+  color: red;
+  font-weight: bold;
+}
+
+.role_manager {
+  color: #ffb302;
+  font-weight: bold;
+}
+
+.progress-spinner {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.progress-spinner:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.filter_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.icon_search_reset {
+  font-size: 21px;
+  cursor: pointer;
+  color: white;
+}
+
+i {
+  cursor: pointer;
+  font-size: 21px;
+}
+
+.action_icon {
+  display: flex;
+}
+
+.field-error {
+  color: black;
+}

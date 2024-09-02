@@ -1,0 +1,45 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  color: black;
+}
+
+.add_input input {
+  padding: 0.75rem 0.75rem;
+  width: 277px;
+}
+
+.add_input_body {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 17px;
+}
+
+.btn_confirm_add {
+  margin-left: 204px;
+}
+
+.text-red {
+  color: red;
+}
+
+.field-error {
+  color: red;
+  margin-left: 202px;
+  margin-bottom: 17px;
+}
+
+.field-error-identificationNumber {
+  color: red;
+  margin-left: 132px;
+  margin-bottom: 17px;
+}
+
+.textarea_desc {
+  padding: 8.5px;
+  resize: none;
+}
