@@ -3,8 +3,7 @@ import { RoomAdd, RoomTypeForDropdown } from '../../../../interface/room.interfa
 import { RoomService } from '../../../../service/room.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-room-add',
@@ -17,18 +16,25 @@ export class RoomAddComponent {
     private messageService: MessageService,
     private formBuilder: FormBuilder
   ) { 
-    // this.roomAddForm = this.formBuilder.group({
-    //   roomName: ['', [
-    //     Validators.required,
-    //     Validators.maxLength(100),
-    //     Validators.pattern(/^[a-zA-Z0-9 ]*$/)
-    //   ]]
-    // });
+    this.roomAddForm = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      roomNumber: ['', [Validators.required]],
+      floor: ['', [Validators.required]],
+      roomTypeId: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required]]
+    });
   }
 
   ngOnInit() {
     this.getAllRoomTypeForDropdown();
+    this.roomAddForm.statusChanges.subscribe(status => {
+      this.isSubmitDisabled = status !== 'VALID';
+    });
   }
+
+  roomAddForm: FormGroup;
+  isSubmitDisabled: boolean = true;
 
   display: boolean = false;
   fieldErrors: any = {};
@@ -57,7 +63,7 @@ export class RoomAddComponent {
   }
 
   handleAddRoom() {
-    this.roomService.addRoom(this.dataRoomAdd).subscribe({
+    this.roomService.addRoom(this.roomAddForm.value).subscribe({
       next: () => {
         this.display = false;
         this.callGetRoomBackAfterAddUpdate.emit();
@@ -85,6 +91,8 @@ export class RoomAddComponent {
     }
     this.fieldErrors = {};
     this.errorMessage = '';
+    this.isSubmitDisabled = true;
+    this.roomAddForm.reset();
   }
 
   showAddSuccessNotification() {

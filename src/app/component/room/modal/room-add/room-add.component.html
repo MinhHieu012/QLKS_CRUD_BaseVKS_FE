@@ -1,5 +1,6 @@
 <p-button class="btn_add" (click)="showDialog()"> + Thêm </p-button>
 
+<form [formGroup]="roomAddForm" (ngSubmit)="handleAddRoom()">
 <div class="add_input">
   <p-dialog
     header="Thêm phòng"
@@ -15,11 +16,15 @@
       <input
         pInputText
         id="name"
+        name="name"
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập tên phòng"
-        [(ngModel)]="dataRoomAdd.name"
+        formControlName="name"
       />
+    </div>
+    <div *ngIf="roomAddForm.get('name')?.invalid && roomAddForm.get('name')?.touched" class="field-error">
+      <small *ngIf="roomAddForm.get('name')?.errors?.['required']">Tên phòng là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="roomNumber" class="font-semibold w-6rem">
@@ -29,12 +34,16 @@
       <input
         pInputText
         id="roomNumber"
+        name="roomNumber"
         class="flex-auto"
         autocomplete="off"
         type="number"
         placeholder="Nhập số phòng"
-        [(ngModel)]="dataRoomAdd.roomNumber"
+        formControlName="roomNumber"
       />
+    </div>
+    <div *ngIf="roomAddForm.get('roomNumber')?.invalid && roomAddForm.get('roomNumber')?.touched" class="field-error">
+      <small *ngIf="roomAddForm.get('roomNumber')?.errors?.['required']">Số phòng là bắt buộc</small>
     </div>
     <div *ngIf="fieldErrors.roomNumber" class="field-error">
       {{ fieldErrors.roomNumber }}
@@ -47,12 +56,16 @@
       <input
         pInputText
         id="floor"
+        name="floor"
         class="flex-auto"
         autocomplete="off"
         type="number"
         placeholder="Nhập số tầng"
-        [(ngModel)]="dataRoomAdd.floor"
+        formControlName="floor"
       />
+    </div>
+    <div *ngIf="roomAddForm.get('floor')?.invalid && roomAddForm.get('floor')?.touched" class="field-error">
+      <small *ngIf="roomAddForm.get('floor')?.errors?.['required']">Số tầng là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="roomType" class="font-semibold w-6rem">
@@ -63,12 +76,17 @@
         optionLabel="name"
         optionValue="id"
         [options]="roomType"
+        id="roomTypeId"
+        name="roomTypeId"
         class="dropdown_search"
         placeholder="Chọn loại phòng"
         autoWidth="false"
         [style]="{ width: '100%' }"
-        [(ngModel)]="dataRoomAdd.roomTypeId"
+        formControlName="roomTypeId"
       />
+    </div>
+    <div *ngIf="roomAddForm.get('roomTypeId')?.invalid && roomAddForm.get('roomTypeId')?.touched" class="field-error">
+      <small *ngIf="roomAddForm.get('roomTypeId')?.errors?.['required']">Loại phòng là bắt buộc</small>
     </div>
     <div *ngIf="fieldErrors.roomTypeExist" class="field-error">
       {{ fieldErrors.roomTypeExist }}
@@ -77,12 +95,17 @@
       <label for="dateOfBirth" class="font-semibold w-6rem"> Mô tả </label>
       <textarea
         class="textarea_desc"
+        id="description"
+        name="description"
         rows="3"
         cols="27"
         pInputTextarea
         placeholder="Nhập mô tả phòng"
-        [(ngModel)]="dataRoomAdd.description"
+        formControlName="description"
       ></textarea>
+    </div>
+    <div *ngIf="roomAddForm.get('description')?.invalid && roomAddForm.get('description')?.touched" class="field-error">
+      <small *ngIf="roomAddForm.get('description')?.errors?.['required']">Mô tả là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="price" class="font-semibold w-6rem">
@@ -92,15 +115,20 @@
       <input
         pInputText
         id="price"
+        name="price"
         class="flex-auto"
         autocomplete="off"
         type="number"
         placeholder="Nhập giá/giờ"
-        [(ngModel)]="dataRoomAdd.price"
+        formControlName="price"
       />
     </div>
-    <p-button class="btn_confirm_add" (click)="handleAddRoom()">
+    <div *ngIf="roomAddForm.get('price')?.invalid && roomAddForm.get('price')?.touched" class="field-error">
+      <small *ngIf="roomAddForm.get('price')?.errors?.['required']">Giá là bắt buộc</small>
+    </div>
+    <p-button class="btn_confirm_add" [disabled]="isSubmitDisabled" (click)="handleAddRoom()">
       + Thêm
     </p-button>
   </p-dialog>
 </div>
+</form>

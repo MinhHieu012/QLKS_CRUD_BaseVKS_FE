@@ -1,5 +1,6 @@
 <i class="pi pi-user-edit" (click)="showDialog()"></i>
 
+<form [formGroup]="roomUpdateForm" (ngSubmit)="handleUpdateRoom()" class="update_form">
 <div class="add_input">
   <p-dialog
     header="Cập nhật phòng"
@@ -15,11 +16,16 @@
       <input
         pInputText
         id="name"
+        name="name"
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập tên phòng"
         [(ngModel)]="dataRoomSendToUpdate.name"
+        formControlName="name"
       />
+    </div>
+    <div *ngIf="roomUpdateForm.get('name')?.invalid && roomUpdateForm.get('name')?.touched" class="field-error">
+      <small *ngIf="roomUpdateForm.get('name')?.errors?.['required']">Tên phòng là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="roomNumber" class="font-semibold w-6rem">
@@ -29,11 +35,16 @@
       <input
         pInputText
         id="roomNumber"
+        name="roomNumber"
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập số phòng"
         [(ngModel)]="dataRoomSendToUpdate.roomNumber"
+        formControlName="roomNumber"
       />
+    </div>
+    <div *ngIf="roomUpdateForm.get('roomNumber')?.invalid && roomUpdateForm.get('roomNumber')?.touched" class="field-error">
+      <small *ngIf="roomUpdateForm.get('roomNumber')?.errors?.['required']">Số phòng là bắt buộc</small>
     </div>
     <div *ngIf="fieldErrors.roomNumber" class="field-error">
       {{ fieldErrors.roomNumber }}
@@ -46,12 +57,17 @@
       <input
         pInputText
         id="floor"
+        name="floor"
         class="flex-auto"
         autocomplete="off"
         type="email"
         placeholder="Nhập số tầng"
         [(ngModel)]="dataRoomSendToUpdate.floor"
+        formControlName="floor"
       />
+    </div>
+    <div *ngIf="roomUpdateForm.get('floor')?.invalid && roomUpdateForm.get('floor')?.touched" class="field-error">
+      <small *ngIf="roomUpdateForm.get('floor')?.errors?.['required']">Số tầng là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="roomType" class="font-semibold w-6rem">
@@ -61,27 +77,37 @@
       <p-dropdown
         optionLabel="name"
         optionValue="id"
+        name="roomTypeId"
         [options]="roomType"
         class="dropdown_search"
         placeholder="Chọn loại phòng"
         autoWidth="false"
         [style]="{ width: '100%' }"
         [(ngModel)]="dataRoomSendToUpdate.roomTypeId"
+        formControlName="roomTypeId"
       />
+    </div>
+    <div *ngIf="roomUpdateForm.get('roomTypeId')?.invalid && roomUpdateForm.get('roomTypeId')?.touched" class="field-error">
+      <small *ngIf="roomUpdateForm.get('roomTypeId')?.errors?.['required']">Loại phòng là bắt buộc</small>
     </div>
     <div *ngIf="fieldErrors.roomTypeExist" class="field-error">
       {{ fieldErrors.roomTypeExist }}
     </div>
     <div class="add_input_body">
-      <label for="dateOfBirth" class="font-semibold w-6rem"> Mô tả </label>
+      <label for="description" class="font-semibold w-6rem"> Mô tả </label>
       <textarea
         class="textarea_desc"
         rows="2"
+        name="description"
         cols="27"
         pInputTextarea
         placeholder="Nhập mô tả phòng"
         [(ngModel)]="dataRoomSendToUpdate.description"
+        formControlName="description"
       ></textarea>
+    </div>
+    <div *ngIf="roomUpdateForm.get('description')?.invalid && roomUpdateForm.get('description')?.touched" class="field-error">
+      <small *ngIf="roomUpdateForm.get('description')?.errors?.['required']">Mô tả là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="price" class="font-semibold w-6rem">
@@ -91,11 +117,16 @@
       <input
         pInputText
         id="price"
+        name="price"
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập giá/giờ"
         [(ngModel)]="dataRoomSendToUpdate.price"
+        formControlName="price"
       />
+    </div>
+    <div *ngIf="roomUpdateForm.get('price')?.invalid && roomUpdateForm.get('price')?.touched" class="field-error">
+      <small *ngIf="roomUpdateForm.get('price')?.errors?.['required']">Giá là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="roomType" class="font-semibold w-6rem">
@@ -105,16 +136,22 @@
       <p-dropdown
         optionLabel="code"
         optionValue="name"
+        name="status"
         [options]="roomStatus"
         class="dropdown_search"
         placeholder="Chọn trạng thái phòng"
         autoWidth="false"
         [style]="{ width: '100%' }"
         [(ngModel)]="dataRoomSendToUpdate.status"
+        formControlName="status"
       />
     </div>
-    <p-button class="btn_confirm_add" (click)="handleUpdateRoom()">
+    <div *ngIf="roomUpdateForm.get('status')?.invalid && roomUpdateForm.get('status')?.touched" class="field-error">
+      <small *ngIf="roomUpdateForm.get('status')?.errors?.['required']">Trạng thái là bắt buộc</small>
+    </div>
+    <p-button class="btn_confirm_add" [disabled]="isSubmitDisabled" (click)="handleUpdateRoom()">
       <i class="pi pi-user-edit icon-update"></i>Cập nhật
     </p-button>
   </p-dialog>
 </div>
+</form>

@@ -47,3 +47,9 @@
   padding: 8.5px;
   resize: none;
 }
+
+.field-error small {
+  color: red;
+  font-size: 16px;
+  margin-left: 1px;
+}

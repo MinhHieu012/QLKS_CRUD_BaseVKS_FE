@@ -3,6 +3,7 @@ import { RoomService } from '../../../../service/room.service';
 import { RoomStatus, RoomTypeForDropdown, RoomUpdate } from '../../../../interface/room.interface';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-room-update',
@@ -12,8 +13,19 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class RoomUpdateComponent {
   constructor(
     private roomService: RoomService,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    private fb: FormBuilder
+  ) { 
+    this.roomUpdateForm = this.fb.group({
+      name: ['', [Validators.required]],
+      roomNumber: ['', [Validators.required]],
+      floor: ['', [Validators.required]],
+      roomTypeId: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required]],
+      status: ['', [Validators.required]]
+    });
+  }
 
   ngOnInit() {
     this.getAllRoomTypeForDropdown();
@@ -23,7 +35,13 @@ export class RoomUpdateComponent {
       { name: 'CLEANING', code: 'Đang dọn dẹp' },
       { name: 'USING', code: 'Đang sử dụng' }
     ];
+    this.roomUpdateForm.statusChanges.subscribe(status => {
+      this.isSubmitDisabled = status !== 'VALID';
+    });
   }
+
+  roomUpdateForm: FormGroup;
+  isSubmitDisabled: boolean = true;
 
   display: boolean = false;
   errorMessage: String = '';
@@ -103,6 +121,8 @@ export class RoomUpdateComponent {
     }
     this.fieldErrors = {};
     this.errorMessage = '';
+    this.isSubmitDisabled = true;
+    this.roomUpdateForm.reset();
   }
 
   showUpdateSuccessNotification() {
