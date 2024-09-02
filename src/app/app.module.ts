@@ -33,6 +33,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RoomStatusComponent } from './component/room/modal/room-status/room-status.component';
 import { RoomtypeAddComponent } from './component/roomtype/modal/roomtype-add/roomtype-add.component';
 import { RoomtypeUpdateComponent } from './component/roomtype/modal/roomtype-update/roomtype-update.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,8 @@ import { RoomtypeUpdateComponent } from './component/roomtype/modal/roomtype-upd
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     PasswordModule,

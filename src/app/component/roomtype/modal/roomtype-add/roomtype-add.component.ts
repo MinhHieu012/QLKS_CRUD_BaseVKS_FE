@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { RoomtypeService } from '../../../../service/roomtype.service';
 import { RoomTypeAddUpdate } from '../../../../interface/roomtype.interface';
 import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-roomtype-add',
@@ -13,9 +14,25 @@ export class RoomtypeAddComponent {
   constructor(
     private roomTypeService: RoomtypeService,
     private messageService: MessageService,
-  ) { }
+    private fb: FormBuilder
+  ) {
+    this.roomTypeAddForm = this.fb.group({
+      name: ['', [Validators.required]],
+      maxPeople: ['', [Validators.required]],
+      description: ['']
+    });
+  }
+
+  ngOnInit() {
+    this.roomTypeAddForm.statusChanges.subscribe(status => {
+      this.isSubmitDisabled = status !== 'VALID';
+    });
+  }
 
   @Output() callGetRoomTypeBackAfterAddUpdate = new EventEmitter<String>();
+
+  roomTypeAddForm: FormGroup;
+  isSubmitDisabled: boolean = true;
 
   errorMessage: String = '';
   fieldErrors: any = {};
@@ -32,7 +49,7 @@ export class RoomtypeAddComponent {
   }
 
   handleAddRoomType() {
-    this.roomTypeService.addRoomType(this.dataAddRoomType).subscribe({
+    this.roomTypeService.addRoomType(this.roomTypeAddForm.value).subscribe({
       next: () => {
         this.display = false;
         this.callGetRoomTypeBackAfterAddUpdate.emit();
@@ -58,6 +75,8 @@ export class RoomtypeAddComponent {
     }
     this.fieldErrors = {};
     this.errorMessage = '';
+    this.isSubmitDisabled = true;
+    this.roomTypeAddForm.reset();
   }
 
   showAddSuccessNotification() {

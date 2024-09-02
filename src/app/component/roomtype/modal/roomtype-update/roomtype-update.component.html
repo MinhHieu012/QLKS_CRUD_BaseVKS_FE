@@ -1,5 +1,6 @@
 <i class="pi pi-user-edit" (click)="showDialog()"></i>
 
+<form [formGroup]="roomTypeUpdateForm" (ngSubmit)="handleUpdateRoomType()">
 <div class="add_input">
   <p-dialog
     header="Thêm người dùng"
@@ -15,11 +16,16 @@
       <input
         pInputText
         id="name"
+        name="name"
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập tên kiểu phòng"
+        formControlName="name"
         [(ngModel)]="roomTypeDataSendToUpdate.name"
       />
+    </div>
+    <div *ngIf="roomTypeUpdateForm.get('name')?.invalid && roomTypeUpdateForm.get('name')?.touched" class="field-error">
+      <small *ngIf="roomTypeUpdateForm.get('name')?.errors?.['required']">Tên loại phòng là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="phone" class="font-semibold w-6rem">
@@ -29,27 +35,36 @@
       <input
         pInputText
         id="maxPeople"
+        name="maxPeople"
         type="number"
         class="flex-auto"
         autocomplete="off"
         placeholder="Nhập số người tối đa"
+        formControlName="maxPeople"
         [(ngModel)]="roomTypeDataSendToUpdate.maxPeople"
       />
+    </div>
+    <div *ngIf="roomTypeUpdateForm.get('maxPeople')?.invalid && roomTypeUpdateForm.get('maxPeople')?.touched" class="field-error">
+      <small *ngIf="roomTypeUpdateForm.get('maxPeople')?.errors?.['required']">Số người là bắt buộc</small>
     </div>
     <div class="add_input_body">
       <label for="description" class="font-semibold w-6rem">Mô tả </label>
       <textarea
         class="textarea_desc"
+        id="description"
+        name="description"
         rows="3"
         cols="27"
         pInputTextarea
         placeholder="Nhập mô tả loại phòng"
+        formControlName="description"
         [(ngModel)]="roomTypeDataSendToUpdate.description"
       >
       </textarea>
     </div>
-    <p-button class="btn_confirm_add" (click)="handleUpdateRoomType()">
+    <p-button class="btn_confirm_add" [disabled]="isSubmitDisabled" (click)="handleUpdateRoomType()">
       <i class="pi pi-user-edit icon-update"></i>Cập nhật
       </p-button>
   </p-dialog>
 </div>
+</form>
