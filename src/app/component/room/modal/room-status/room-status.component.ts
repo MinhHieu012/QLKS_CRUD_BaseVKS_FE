@@ -19,7 +19,7 @@ export class RoomStatusComponent {
     this.getAllRoomTypeForDropdown();
     this.roomStatus = [
       { name: 'ACTIVE', code: 'Đang rảnh' },
-      { name: 'LOCK',  code: 'Bị khóa' },
+      { name: 'LOCK', code: 'Bị khóa' },
       { name: 'CLEANING', code: 'Đang dọn dẹp' },
       { name: 'USING', code: 'Đang sử dụng' }
     ];
@@ -54,15 +54,19 @@ export class RoomStatusComponent {
   }
 
   showDialog() {
-    this.display = true;
-    this.dataRoomSendToUpdate.id = Number(this.roomDataIdFromParent);
-    this.dataRoomSendToUpdate.name = this.roomDataNameFromParent;
-    this.dataRoomSendToUpdate.roomNumber = this.roomDataRoomNumberFromParent;
-    this.dataRoomSendToUpdate.floor = this.roomDataFloorFromParent;
-    this.dataRoomSendToUpdate.roomTypeId = this.roomDataRoomTypeIdFromParent;
-    this.dataRoomSendToUpdate.description = this.roomDataDescriptionFromParent;
-    this.dataRoomSendToUpdate.price = this.roomDataPriceFromParent;
-    this.dataRoomSendToUpdate.status = this.roomDataStatusFromParent;
+    if (this.roomDataStatusFromParent === 'USING' || this.roomDataStatusFromParent === 'APPROVED') {
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Phòng đang sử dụng hoặc đã được đặt lịch! Không thể cập nhật!" });
+    } else {
+      this.dataRoomSendToUpdate.id = Number(this.roomDataIdFromParent);
+      this.dataRoomSendToUpdate.name = this.roomDataNameFromParent;
+      this.dataRoomSendToUpdate.roomNumber = this.roomDataRoomNumberFromParent;
+      this.dataRoomSendToUpdate.floor = this.roomDataFloorFromParent;
+      this.dataRoomSendToUpdate.roomTypeId = this.roomDataRoomTypeIdFromParent;
+      this.dataRoomSendToUpdate.description = this.roomDataDescriptionFromParent;
+      this.dataRoomSendToUpdate.price = this.roomDataPriceFromParent;
+      this.dataRoomSendToUpdate.status = this.roomDataStatusFromParent;
+      this.display = true;
+    }
   }
 
   getAllRoomTypeForDropdown() {
