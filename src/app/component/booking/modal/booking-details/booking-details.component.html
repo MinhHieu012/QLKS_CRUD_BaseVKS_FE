@@ -3,21 +3,47 @@
 </td>
 
 <p-dialog
-  [header]="'Chi tiết lịch đặt ' + bookingIdFromParent"
+  [header]="'Chi tiết mã lịch đặt ' + bookingIdFromParent"
   [modal]="true"
   [(visible)]="visible"
   [style]="{ width: '30rem' }"
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
   [maximizable]="true"
 >
-  <div *ngFor="let item of bookingDetail">
-    <p><b>Mã lịch đặt:</b> {{ item.id }}</p>
-    <p><b>Khách đặt:</b> {{ item.user.username }} - {{ item.user.phone }}</p>
-    <p><b>Phòng:</b> {{ item.room.roomNumber }} - {{ item.room.name }}</p>
-    <p><b>Thời gian check-in:</b> {{ item.checkInDate | date : "dd-MM-yyyy - HH:mm" }}</p>
-    <p><b>Thời gian check-out:</b> {{ item.checkoutDate | date : "dd-MM-yyyy - HH:mm" }}</p>
-    <p><b>Cọc:</b> {{ item.deposit.toString() | currency: "VND" }}</p>
-    <p><b>Tổng tiền:</b> {{ item.amount.toString() | currency: "VND" }}</p>
-    <p><b>Trạng thái:</b> {{ item.status }}</p>
+  <div *ngFor="let item of bookingDetail" class="detail_parent">
+    <p class="detail_item">
+      <b>Mã lịch đặt:</b>
+      <span>{{ item.id }}</span>
+    </p>
+    <p class="detail_item">
+      <b>Khách đặt:</b>
+      <span>{{ item.user.username }} - {{ item.user.phone }}</span>
+    </p>
+    <p class="detail_item">
+      <b>Phòng:</b>
+      <span>{{ item.room.roomNumber }} - {{ item.room.name }}</span>
+    </p>
+    <p class="detail_item">
+      <b>Thời gian check-in:</b>
+      <span>{{ item.checkInDate | date : "dd-MM-yyyy - HH:mm" }}</span>
+    </p>
+    <p class="detail_item">
+      <b>Thời gian check-out:</b>
+      <span>{{ item.checkoutDate | date : "dd-MM-yyyy - HH:mm" }}</span>
+    </p>
+    <p class="detail_item">
+      <b>Cọc:</b>
+      <span>{{ item.deposit.toString() | currency : "VND" }}</span>
+    </p>
+    <p class="detail_item">
+      <b>Tổng tiền:</b>
+      <span>{{ item.amount.toString() | currency : "VND" }}</span>
+    </p>
+    <p class="detail_item">
+      <b>Trạng thái:</b>
+      <span *ngIf="item.status === 'PENDING'">Chờ duyệt</span>
+      <span *ngIf="item.status === 'APPROVED'">Đã duyệt</span>
+      <span *ngIf="item.status === 'CANCEL'">Đã hủy</span>
+    </p>
   </div>
 </p-dialog>
