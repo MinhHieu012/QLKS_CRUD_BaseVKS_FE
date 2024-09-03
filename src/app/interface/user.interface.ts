@@ -1,5 +1,6 @@
 export interface User {
      username: String,
+     phone?: String,
      identificationNumber: String,
      dateOfBirth: Date,
      role: String,

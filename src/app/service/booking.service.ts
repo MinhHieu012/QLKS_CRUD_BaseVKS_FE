@@ -25,4 +25,8 @@ export class BookingService {
     .set('checkoutDate', data.checkoutDate ? data.checkoutDate.toString() : '')
     return this.http.get('http://localhost:8080/admin/quanlydatphong/filter', { params });
   }
+
+  public getBookingById(id: Number) {
+    return this.http.get(`http://localhost:8080/admin/quanlydatphong/lich/${id}`);
+  }
 }

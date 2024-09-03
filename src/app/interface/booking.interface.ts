@@ -5,11 +5,11 @@ export interface Booking {
      id: Number,
      room: Room,
      user: User,
-     checkIn: Date,
-     checkOut: Date,
+     checkInDate: Date,
+     checkoutDate: Date,
      status: String,
      deposit: Number,
-     totalPrice: Number
+     amount: Number
 }
 
 export interface GetBookingWithSearchPaging {

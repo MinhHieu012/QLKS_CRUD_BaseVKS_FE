@@ -37,6 +37,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BookingAddComponent } from './component/booking/modal/booking-add/booking-add.component';
 import { BookingUpdateComponent } from './component/booking/modal/booking-update/booking-update.component';
 import { BookingStatusComponent } from './component/booking/modal/booking-status/booking-status.component';
+import { BookingDetailsComponent } from './component/booking/modal/booking-details/booking-details.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { BookingStatusComponent } from './component/booking/modal/booking-status
     RoomtypeUpdateComponent,
     BookingAddComponent,
     BookingUpdateComponent,
-    BookingStatusComponent
+    BookingStatusComponent,
+    BookingDetailsComponent
   ],
   imports: [
     BrowserModule,

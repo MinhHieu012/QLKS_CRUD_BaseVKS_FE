@@ -75,7 +75,9 @@
         <p-button class="btn_search" (click)="handleSearch()"
           >Tìm kiếm</p-button
         >
-        <p-button (click)="handleResetFilter()"><i class="pi pi-undo icon_search_reset"></i></p-button>
+        <p-button (click)="handleResetFilter()"
+          ><i class="pi pi-undo icon_search_reset"></i
+        ></p-button>
       </div>
     </div>
   </div>
@@ -120,7 +122,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-booking>
           <tr>
-            <td>{{ booking.id }}</td>
+            <app-booking-details [bookingIdFromParent]="booking.id"></app-booking-details>   
             <td>{{ booking.room.name }}</td>
             <td>{{ booking.user.username }}</td>
             <td>{{ booking.checkInDate | date : "dd-MM-yyyy - HH:mm" }}</td>
