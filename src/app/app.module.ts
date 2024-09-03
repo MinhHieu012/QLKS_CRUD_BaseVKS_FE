@@ -34,6 +34,9 @@ import { RoomStatusComponent } from './component/room/modal/room-status/room-sta
 import { RoomtypeAddComponent } from './component/roomtype/modal/roomtype-add/roomtype-add.component';
 import { RoomtypeUpdateComponent } from './component/roomtype/modal/roomtype-update/roomtype-update.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BookingAddComponent } from './component/booking/modal/booking-add/booking-add.component';
+import { BookingUpdateComponent } from './component/booking/modal/booking-update/booking-update.component';
+import { BookingStatusComponent } from './component/booking/modal/booking-status/booking-status.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     RoomUpdateComponent,
     RoomStatusComponent,
     RoomtypeAddComponent,
-    RoomtypeUpdateComponent
+    RoomtypeUpdateComponent,
+    BookingAddComponent,
+    BookingUpdateComponent,
+    BookingStatusComponent
   ],
   imports: [
     BrowserModule,

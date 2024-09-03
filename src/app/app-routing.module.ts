@@ -7,6 +7,7 @@ import { RoomtypeComponent } from './component/roomtype/roomtype.component';
 import { BookingComponent } from './component/booking/booking.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'quanlynguoidung', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'quanlynguoidung', component: UserComponent },
   { path: 'quanlyphong', component: RoomComponent },

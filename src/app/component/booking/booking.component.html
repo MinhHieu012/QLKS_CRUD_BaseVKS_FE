@@ -1,1 +1,146 @@
-<h2>Quản lý đặt lịch</h2>
+<div class="title_room">
+  <h2>Quản lý đặt lịch</h2>
+</div>
+
+<div class="progress-spinner" *ngIf="isLoading == true">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+
+<div class="filter">
+  <h3 class="title_filter">Bộ lọc tìm kiếm</h3>
+  <div class="filter_body">
+    <div class="filter_input_left">
+      <div class="name_search">
+        <span>Mã:</span>
+        <input
+          class="input_search"
+          type="number"
+          pInputText
+          placeholder="Nhập mã lịch đặt"
+          [(ngModel)]="bookingId"
+          (keyup.enter)="handleSearch()"
+        />
+      </div>
+      <div class="room_number_search">
+        <span>Tên phòng:</span>
+        <input
+          class="input_search"
+          type="text"
+          pInputText
+          placeholder="Nhập tên phòng"
+          [(ngModel)]="roomName"
+          (keyup.enter)="handleSearch()"
+        />
+      </div>
+      <div class="floor_search">
+        <span>Tên khách:</span>
+        <input
+          class="input_search"
+          type="text"
+          pInputText
+          placeholder="Nhập tên khách"
+          [(ngModel)]="userName"
+          (keyup.enter)="handleSearch()"
+        />
+      </div>
+    </div>
+    <div class="filter_input_right">
+      <div class="room_type_search">
+        <span>Check-in:</span>
+        <p-calendar
+          class="dropdown_search"
+          dateFormat="dd/mm/yy"
+          [style]="{ width: '100%' }"
+          placeholder="Chọn ngày check-in"
+          [showIcon]="true"
+          [showTime]="true"
+          [(ngModel)]="checkInDate"
+          (keyup.enter)="handleSearch()"
+        />
+      </div>
+      <div class="status_search">
+        <span>Check-out:</span>
+        <p-calendar
+          class="dropdown_search"
+          dateFormat="dd/mm/yy"
+          [style]="{ width: '100%' }"
+          placeholder="Chọn ngày check-out"
+          [showIcon]="true"
+          [showTime]="true"
+          [(ngModel)]="checkOutDate"
+          (keyup.enter)="handleSearch()"
+        />
+      </div>
+      <div class="btn_search_reset">
+        <p-button class="btn_search" (click)="handleSearch()"
+          >Tìm kiếm</p-button
+        >
+        <p-button (click)="handleResetFilter()"><i class="pi pi-undo icon_search_reset"></i></p-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast></p-toast>
+<p-confirmPopup></p-confirmPopup>
+
+<div class="room_table">
+  <div class="table_header">
+    <h3 class="title_room">Danh sách đặt lịch</h3>
+    <p-toast></p-toast>
+    <app-booking-add></app-booking-add>
+  </div>
+  <div class="table_body">
+    <div class="card">
+      <p-table [value]="listBooking" [tableStyle]="{ 'min-width': '60rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="id">
+              Mã lịch
+              <p-sortIcon field="id"></p-sortIcon>
+            </th>
+            <th pSortableColumn="name">
+              Phòng
+              <p-sortIcon field="name"></p-sortIcon>
+            </th>
+            <th pSortableColumn="userName">
+              Khách đặt
+              <p-sortIcon field="userName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="checkIn">
+              Check-in
+              <p-sortIcon field="checkIn"></p-sortIcon>
+            </th>
+            <th pSortableColumn="checkOut">
+              Check-out
+              <p-sortIcon field="checkOut"></p-sortIcon>
+            </th>
+            <th>Thao tác</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-booking>
+          <tr>
+            <td>{{ booking.id }}</td>
+            <td>{{ booking.room.name }}</td>
+            <td>{{ booking.user.username }}</td>
+            <td>{{ booking.checkInDate | date : "dd-MM-yyyy - HH:mm" }}</td>
+            <td>{{ booking.checkoutDate | date : "dd-MM-yyyy - HH:mm" }}</td>
+            <td class="action_icon">
+              <app-booking-update></app-booking-update>
+              <app-booking-status></app-booking-status>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="table_footer">
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [rows]="limit"
+      [totalRecords]="totalItem"
+      [first]="(this.page - 1) * limit"
+    >
+    </p-paginator>
+  </div>
+</div>

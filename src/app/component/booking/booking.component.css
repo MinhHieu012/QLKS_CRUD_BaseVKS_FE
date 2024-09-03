@@ -5,3 +5,151 @@
   text-decoration: none;
   color: black;
 }
+
+.filter {
+  margin-top: 20px;
+}
+
+.title_filter {
+  margin-bottom: 18px;
+}
+
+.filter_body {
+  display: flex;
+  gap: 30px;
+}
+
+.filter_input_left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+}
+
+.name_search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.room_number_search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.floor_search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filter_input_right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+}
+
+.room_type_search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dropdown_search {
+  width: 80%;
+}
+
+.btn_search {
+  margin-left: 120px;
+}
+
+.status_search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input_search {
+  padding: 12px;
+  width: 80%;
+}
+
+.room_table {
+  margin-top: 20px;
+}
+
+.table_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.table_body {
+  height: 260px;
+}
+
+.table_body th {
+  padding: 20px 0 20px 0;
+}
+
+.table_body td {
+  padding: 20px 0 20px 0;
+}
+
+.table_body i {
+  font-size: 21px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.action_column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action_icon {
+  display: flex;
+}
+
+.progress-spinner {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.progress-spinner:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+i {
+  cursor: pointer;
+  font-size: 21px;
+}
+
+.btn_search_reset {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.icon_search_reset {
+  color: white;
+}
