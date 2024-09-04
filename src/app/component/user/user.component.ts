@@ -3,6 +3,8 @@ import { UserService } from '../../service/user.service';
 import { GetUserWithSearchPaging, User } from '../../interface/user.interface';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LocalStorageService } from '../../service/local-storage-service.service';
+import { CommonComponent } from '../../utils/common.component';
 
 @Component({
   selector: 'app-user',
@@ -14,7 +16,8 @@ export class UserComponent {
   constructor(
     private userService: UserService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private commmonFunc: CommonComponent
   ) { }
 
   ngOnInit(): void {
@@ -47,11 +50,11 @@ export class UserComponent {
 
   getUserWithSearchAndPaging() {
     this.isLoading = true;
-    this.userService.getAllUsers(this.stateGetUserWithSearchPaging).subscribe((data: any) => {      
+    this.userService.getAllUsers(this.stateGetUserWithSearchPaging).subscribe((data: any) => {
       if (data.result.content.length === 0) {
         this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy người dùng nào!' });
         this.isLoading = false;
-      } 
+      }
       if (this.isFirstTimeSearch === true && data.result.content.length > 0 && this.stateGetUserWithSearchPaging.username !== '' || this.stateGetUserWithSearchPaging.phone !== '' || this.stateGetUserWithSearchPaging.identificationNumber !== '') {
         this.messageService.add({ severity: 'success', summary: 'Tìm kiếm', detail: 'Đã tìm thấy user!' });
         this.isLoading = false;
@@ -67,58 +70,71 @@ export class UserComponent {
     this.getUserWithSearchAndPaging();
   }
 
-  confirmLockUser(eventLockUser: Event, id: String, username: String) {
-    this.confirmationService.confirm({
-      target: eventLockUser.target as EventTarget,
-      message: 'Bạn chắc chắn muốn khóa người dùng này?',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.userService.lockUser(id).subscribe({
-          next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Khóa', detail: `Đã khóa người dùng có họ tên là ${username}` });
-            this.getUserWithSearchAndPaging();
-          },
-          error: (error: HttpErrorResponse) => {
-            if (error.error) {
-              this.messageService.add({ severity: 'error', summary: 'Khóa', detail: `Người dùng có họ tên là ${username} chưa bị khóa!` });
-              this.fieldErrors = error.error.result;
-            } else {
-              this.errorMessage = "Lỗi không xác định!";
+  confirmLockUser(eventLockUser: Event, id: String, username: String, accessToken?: String) {
+    const isExistTokenOrLoggedIn = this.commmonFunc.checkUserRoleOrLoggedIn();
+    if (!isExistTokenOrLoggedIn) {
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+    } else {
+      this.confirmationService.confirm({
+        target: eventLockUser.target as EventTarget,
+        message: 'Bạn chắc chắn muốn khóa người dùng này?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.userService.lockUser(id).subscribe({
+            next: () => {
+              this.messageService.add({ severity: 'success', summary: 'Khóa', detail: `Đã khóa người dùng có họ tên là ${username}` });
+              this.getUserWithSearchAndPaging();
+            },
+            error: (error: HttpErrorResponse) => {
+              if (error.status === 403) {
+                this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+              }
+              if (error.error) {
+                this.messageService.add({ severity: 'error', summary: 'Khóa', detail: `Người dùng có họ tên là ${username} chưa bị khóa!` });
+                this.fieldErrors = error.error.result;
+              } else {
+                this.errorMessage = "Lỗi không xác định!";
+              }
             }
-          }
-        })
-      },
-      reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Khóa', detail: `Người dùng có họ tên là ${username} chưa bị khóa!` });
-      }
-    });
+          })
+        },
+        reject: () => {
+          this.messageService.add({ severity: 'error', summary: 'Khóa', detail: `Người dùng có họ tên là ${username} chưa bị khóa!` });
+        }
+      });
+    }
   }
 
-  confirmUnLockUser(eventLockUser: Event, id: String, username: String) {
-    this.confirmationService.confirm({
-      target: eventLockUser.target as EventTarget,
-      message: 'Bạn chắc chắn muốn mở khóa người dùng này?',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.userService.unLockUser(id).subscribe({
-          next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Mở khóa', detail: 'Đã mở khóa người dùng này!' });
-            this.getUserWithSearchAndPaging();
-          },
-          error: (error: HttpErrorResponse) => {
-            if (error.error) {
-              this.messageService.add({ severity: 'error', summary: 'Mở khóa', detail: `Người dùng có họ tên là ${username} chưa được mở khóa!` });
-              this.fieldErrors = error.error.result;
-            } else {
-              this.errorMessage = "Lỗi không xác định!";
+  confirmUnLockUser(eventLockUser: Event, id: String, username: String, accessToken?: String) {
+    const isExistTokenOrLoggedIn = this.commmonFunc.checkUserRoleOrLoggedIn();
+    if (!isExistTokenOrLoggedIn) {
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+    } else {
+      this.confirmationService.confirm({
+        target: eventLockUser.target as EventTarget,
+        message: 'Bạn chắc chắn muốn mở khóa người dùng này?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.userService.unLockUser(id).subscribe({
+            next: () => {
+              this.messageService.add({ severity: 'success', summary: 'Mở khóa', detail: 'Đã mở khóa người dùng này!' });
+              this.getUserWithSearchAndPaging();
+            },
+            error: (error: HttpErrorResponse) => {
+              if (error.error) {
+                this.messageService.add({ severity: 'error', summary: 'Mở khóa', detail: `Người dùng có họ tên là ${username} chưa được mở khóa!` });
+                this.fieldErrors = error.error.result;
+              } else {
+                this.errorMessage = "Lỗi không xác định!";
+              }
             }
-          }
-        })
-      },
-      reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Mở khóa', detail: 'Người dùng chưa được mở khóa!' });
-      }
-    });
+          })
+        },
+        reject: () => {
+          this.messageService.add({ severity: 'error', summary: 'Mở khóa', detail: 'Người dùng chưa được mở khóa!' });
+        }
+      });
+    }
   }
 
   handleSearch() {

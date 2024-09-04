@@ -4,6 +4,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { GetRoomTypeWithSearchPaging, RoomType } from '../../interface/roomtype.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { style } from '@angular/animations';
+import { CommonComponent } from '../../utils/common.component';
 
 @Component({
   selector: 'app-roomtype',
@@ -14,7 +15,8 @@ export class RoomtypeComponent {
   constructor(
     private roomTypeService: RoomtypeService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private commmonFunc: CommonComponent
   ) { }
 
   ngOnInit() {
@@ -66,30 +68,35 @@ export class RoomtypeComponent {
   }
 
   confirmDeleteRoomType(eventDeleteRoomType: Event, id: Number, name: String) {
-    this.confirmationService.confirm({
-      target: eventDeleteRoomType.target as EventTarget,
-      message: `Bạn chắc chắn muốn xóa loại phòng "${name}"?`,
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.roomTypeService.deleteRoomType(id).subscribe({
-          next: () => {
-            this.messageService.add({ severity: 'success', summary: 'Xóa', detail: `Đã xóa loại phòng "${name}"!` });
-            this.getRoomTypeWithSearchAndPaging();
-          },
-          error: (error: HttpErrorResponse) => {
-            if (error.error) {
-              const fieldErrors = error.error.result;
-              this.messageService.add({ severity: 'error', summary: 'Xóa', detail: `${fieldErrors.errorDelete}` });
-            } else {
-              this.errorMessage = "Lỗi không xác định!";
+    const isExistTokenOrLoggedIn = this.commmonFunc.checkUserRoleOrLoggedIn();
+    if (!isExistTokenOrLoggedIn) {
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+    } else {
+      this.confirmationService.confirm({
+        target: eventDeleteRoomType.target as EventTarget,
+        message: `Bạn chắc chắn muốn xóa loại phòng "${name}"?`,
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.roomTypeService.deleteRoomType(id).subscribe({
+            next: () => {
+              this.messageService.add({ severity: 'success', summary: 'Xóa', detail: `Đã xóa loại phòng "${name}"!` });
+              this.getRoomTypeWithSearchAndPaging();
+            },
+            error: (error: HttpErrorResponse) => {
+              if (error.error) {
+                const fieldErrors = error.error.result;
+                this.messageService.add({ severity: 'error', summary: 'Xóa', detail: `${fieldErrors.errorDelete}` });
+              } else {
+                this.errorMessage = "Lỗi không xác định!";
+              }
             }
-          }
-        })
-      },
-      reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Xóa', detail: `Loại phòng "${name}" chưa bị xóa!` });
-      }
-    });
+          })
+        },
+        reject: () => {
+          this.messageService.add({ severity: 'error', summary: 'Xóa', detail: `Loại phòng "${name}" chưa bị xóa!` });
+        }
+      });
+    }
   }
 
   handleSearch() {

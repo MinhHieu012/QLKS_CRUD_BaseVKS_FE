@@ -4,6 +4,8 @@ import { MessageService } from 'primeng/api';
 import { RoomTypeAddUpdate } from '../../../../interface/roomtype.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LocalStorageService } from '../../../../service/local-storage-service.service';
+import { CommonComponent } from '../../../../utils/common.component';
 
 @Component({
   selector: 'app-roomtype-update',
@@ -14,8 +16,9 @@ export class RoomtypeUpdateComponent {
   constructor(
     private roomTypeService: RoomtypeService,
     private messageService: MessageService,
-    private fb: FormBuilder
-  ) { 
+    private fb: FormBuilder,
+    private commmonFunc: CommonComponent,
+  ) {
     this.roomTypeUpdateForm = this.fb.group({
       name: ['', [Validators.required]],
       maxPeople: ['', [Validators.required]],
@@ -60,26 +63,36 @@ export class RoomtypeUpdateComponent {
   }
 
   handleUpdateRoomType() {
-    this.roomTypeService.updateRoomType(this.roomTypeDataSendToUpdate).subscribe({
-      next: () => {
-        this.display = false;
-        this.callGetRoomTypeBackAfterUpdate.emit();
-        this.showUpdateSuccessNotification();
-        this.clearModalDataUpdateRoomType();
-      },
-      error: (error: HttpErrorResponse) => {
-        if (error.error) {
-          this.showUpdateFailedNotification();
-          this.fieldErrors = error.error.result;
-        } else {
-          this.errorMessage = "Lỗi không xác định!";
+    const isExistTokenOrLoggedIn = this.commmonFunc.checkUserRoleOrLoggedIn();
+    if (!isExistTokenOrLoggedIn) {
+      this.display = true;
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+    } else {
+      this.roomTypeService.updateRoomType(this.roomTypeDataSendToUpdate).subscribe({
+        next: () => {
+          this.display = false;
+          this.callGetRoomTypeBackAfterUpdate.emit();
+          this.showUpdateSuccessNotification();
+          this.clearModalDataUpdateRoomType();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.display = true;
+          if (error.status === 403) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+          }
+          if (error.error) {
+            this.showUpdateFailedNotification();
+            this.fieldErrors = error.error.result;
+          } else {
+            this.errorMessage = "Lỗi không xác định!";
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   clearModalDataUpdateRoomType() {
-    this. roomTypeDataSendToUpdate = {
+    this.roomTypeDataSendToUpdate = {
       id: '',
       name: '',
       maxPeople: '',

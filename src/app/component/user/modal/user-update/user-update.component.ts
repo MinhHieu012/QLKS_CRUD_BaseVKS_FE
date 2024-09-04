@@ -4,6 +4,8 @@ import { UserService } from '../../../../service/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LocalStorageService } from '../../../../service/local-storage-service.service';
+import { CommonComponent } from '../../../../utils/common.component';
 
 @Component({
   selector: 'app-user-update',
@@ -14,7 +16,8 @@ export class UserUpdateComponent {
   constructor(
     private userService: UserService,
     private messageService: MessageService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private commmonFunc: CommonComponent,
   ) {
     this.userUpdateForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -81,22 +84,32 @@ export class UserUpdateComponent {
   }
 
   handleUpdateUser() {
-    this.userService.updateUser(this.dataUserSendToUpdate).subscribe({
-      next: () => {
-        this.display = false;
-        this.callGetCustomersBackAfterUpdate.emit();
-        this.showUpdateSuccessNotification();
-        this.clearModalDataUpdateUser();
-      },
-      error: (error: HttpErrorResponse) => {
-        if (error.error) {
-          const fieldErrors = error.error.result;
-          this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.locked}` });
-        } else {
-          this.errorMessage = "Lỗi không xác định!";
+    const isExistTokenOrLoggedIn = this.commmonFunc.checkUserRoleOrLoggedIn();
+    if (!isExistTokenOrLoggedIn) {
+      this.display = true;
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+    } else {
+      this.userService.updateUser(this.dataUserSendToUpdate).subscribe({
+        next: () => {
+          this.display = false;
+          this.callGetCustomersBackAfterUpdate.emit();
+          this.showUpdateSuccessNotification();
+          this.clearModalDataUpdateUser();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.display = true;
+          if (error.status === 403) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+          }
+          if (error.error) {
+            const fieldErrors = error.error.result;
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.locked}` });
+          } else {
+            this.errorMessage = "Lỗi không xác định!";
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   clearModalDataUpdateUser() {

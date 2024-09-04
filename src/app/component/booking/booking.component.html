@@ -90,7 +90,7 @@
   <div class="table_header">
     <h3 class="title_room">Danh sách đặt lịch</h3>
     <p-toast></p-toast>
-    <app-booking-add></app-booking-add>
+    <app-booking-add (callGetBookingBackAfterAddUpdate)="getAllBookingAgain()"></app-booking-add>
   </div>
   <div class="table_body">
     <div class="card">

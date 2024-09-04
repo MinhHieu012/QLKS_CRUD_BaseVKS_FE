@@ -8,7 +8,26 @@ export interface Booking {
      checkInDate: Date,
      checkoutDate: Date,
      status: String,
-     deposit: Number,
+     deposit: number | string,
+     amount: Number
+}
+
+export interface RoomForDropdownModal {
+     id: Number;
+     roomNumber: Number;
+}
+
+export interface UserForDropdownModal {
+     id: Number | String;
+     username: String;
+}
+
+export interface BookingAdd {
+     roomId: Number,
+     userId: String | Number,
+     checkInDate: Date,
+     checkoutDate: Date,
+     deposit?: Number,
      amount: Number
 }
 

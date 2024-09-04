@@ -18,4 +18,9 @@ export class LocalStorageService {
     });
     return headers
   }
+
+  getAccessToken() {
+    const jwtString = this.getToken();
+    return jwtString ? jwtString.accessToken : null;
+  }
 }

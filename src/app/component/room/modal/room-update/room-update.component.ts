@@ -4,6 +4,8 @@ import { RoomStatus, RoomTypeForDropdown, RoomUpdate } from '../../../../interfa
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LocalStorageService } from '../../../../service/local-storage-service.service';
+import { CommonComponent } from '../../../../utils/common.component';
 
 @Component({
   selector: 'app-room-update',
@@ -14,7 +16,8 @@ export class RoomUpdateComponent {
   constructor(
     private roomService: RoomService,
     private messageService: MessageService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private commmonFunc: CommonComponent,
   ) {
     this.roomUpdateForm = this.fb.group({
       name: ['', [Validators.required]],
@@ -94,22 +97,32 @@ export class RoomUpdateComponent {
   }
 
   handleUpdateRoom() {
-    this.roomService.updateRoom(this.dataRoomSendToUpdate).subscribe({
-      next: () => {
-        this.display = false;
-        this.callGetRoomBackAfterAddUpdate.emit();
-        this.showUpdateSuccessNotification();
-        this.clearModalDataUpdateRoom();
-      },
-      error: (error: HttpErrorResponse) => {
-        if (error.error) {
-          this.showUpdateFailedNotification();
-          this.fieldErrors = error.error.result;
-        } else {
-          this.errorMessage = "Lỗi không xác định!";
+    const isExistTokenOrLoggedIn = this.commmonFunc.checkUserRoleOrLoggedIn();
+    if (!isExistTokenOrLoggedIn) {
+      this.display = true;
+      this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+    } else {
+      this.roomService.updateRoom(this.dataRoomSendToUpdate).subscribe({
+        next: () => {
+          this.display = false;
+          this.callGetRoomBackAfterAddUpdate.emit();
+          this.showUpdateSuccessNotification();
+          this.clearModalDataUpdateRoom();
+        },
+        error: (error: HttpErrorResponse) => {
+          this.display = true;
+          if (error.status === 403) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+          }
+          if (error.error) {
+            this.showUpdateFailedNotification();
+            this.fieldErrors = error.error.result;
+          } else {
+            this.errorMessage = "Lỗi không xác định!";
+          }
         }
-      }
-    })
+      })
+    }
   }
 
   clearModalDataUpdateRoom() {
