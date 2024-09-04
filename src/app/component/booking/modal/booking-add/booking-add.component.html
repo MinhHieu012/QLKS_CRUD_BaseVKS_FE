@@ -3,7 +3,7 @@
 <form [formGroup]="bookingAddForm" (ngSubmit)="handleAddBooking()">
 <div class="add_input">
   <p-dialog
-    header="Thêm phòng"
+    header="Thêm lịch đặt"
     [modal]="true"
     [(visible)]="display"
     [style]="{ width: '33rem' }"
@@ -63,6 +63,7 @@
         [style]="{ width: '100%' }"
         placeholder="Chọn ngày check-in"
         [showTime]="true"
+        appendTo="body"
         formControlName="checkInDate"
       />
     </div>
@@ -82,6 +83,7 @@
         [style]="{ width: '100%' }"
         placeholder="Chọn ngày check-out"
         [showTime]="true"
+        appendTo="body"
         formControlName="checkoutDate"
       />
     </div>

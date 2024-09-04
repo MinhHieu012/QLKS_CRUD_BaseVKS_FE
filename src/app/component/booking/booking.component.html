@@ -128,7 +128,17 @@
             <td>{{ booking.checkInDate | date : "dd-MM-yyyy - HH:mm" }}</td>
             <td>{{ booking.checkoutDate | date : "dd-MM-yyyy - HH:mm" }}</td>
             <td class="action_icon">
-              <app-booking-update></app-booking-update>
+              <app-booking-update
+                [bookingDataIdFromParent]="booking.id"
+                [bookingDataRoomIdFromParent]="booking.room.id"
+                [bookingDataUserIdFromParent]="booking.user.id"
+                [bookingDataCheckInDateFromParent]="booking.checkInDate"
+                [bookingDataCheckOutDateFromParent]="booking.checkoutDate"
+                [bookingDataDepositFromParent]="booking.deposit"
+                [bookingDataAmountFromParent]="booking.amount"
+                [bookingDataStatusFromParent]="booking.status"
+                (callGetBookingBackAfterAddUpdate)="getAllBookingAgain()">
+              </app-booking-update>
               <app-booking-status></app-booking-status>
             </td>
           </tr>

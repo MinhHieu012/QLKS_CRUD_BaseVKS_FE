@@ -12,6 +12,22 @@ export interface Booking {
      amount: Number
 }
 
+export interface BookingUpdate {
+     id: Number | String,
+     roomId: Number | String,
+     userId: Number | String,
+     checkInDate: Date | String,
+     checkoutDate: Date | String,
+     deposit: Number | String,
+     amount: Number | String
+     status: String,
+}
+
+export interface BookingStatus {
+     name: String;
+     code: String;
+}
+
 export interface RoomForDropdownModal {
      id: Number;
      roomNumber: Number;

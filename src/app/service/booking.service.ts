@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from './local-storage-service.service';
-import { Booking, BookingAdd, GetBookingWithSearchPaging, RoomForDropdownModal } from '../interface/booking.interface';
+import { Booking, BookingAdd, BookingUpdate, GetBookingWithSearchPaging, RoomForDropdownModal } from '../interface/booking.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +41,10 @@ export class BookingService {
   public addBooking(dataAddBooking: BookingAdd) {
     const headers = this.localStorageService.header();
     return this.http.post<Booking>('http://localhost:8080/admin/quanlydatphong/add', dataAddBooking, { headers });
+  }
+
+  public updateBooking(dataUpdateBooking: BookingUpdate) {
+    const headers = this.localStorageService.header();
+    return this.http.put<Booking>(`http://localhost:8080/admin/quanlydatphong/update/${dataUpdateBooking.id}`, dataUpdateBooking, { headers });
   }
 }

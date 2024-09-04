@@ -1,1 +1,203 @@
-<i class="pi pi-user-edit"></i>
+<i class="pi pi-user-edit" (click)="showDialog()"></i>
+
+<form [formGroup]="bookingUpdateForm" (ngSubmit)="handleUpdateBooking()">
+  <div class="add_input">
+    <p-dialog
+      [header]="
+        'Cập nhật lịch đặt mã ' + '#' + bookingDataIdFromParent
+      "
+      [modal]="true"
+      [(visible)]="display"
+      [style]="{ width: '33rem' }"
+    >
+      <div class="add_input_body">
+        <label for="roomId" class="font-semibold w-6rem">
+          Số phòng
+          <span class="text-red">(*)</span>
+        </label>
+        <p-dropdown
+          id="roomId"
+          name="roomId"
+          class="dropdown_search"
+          placeholder="Chọn số phòng"
+          autoWidth="false"
+          [style]="{ width: '100%' }"
+          [options]="roomForDropdown"
+          optionLabel="roomNumber"
+          optionValue="id"
+          [(ngModel)]="dataBookingSendToUpdate.roomId"
+          formControlName="roomId"
+        />
+      </div>
+      <div
+        *ngIf="
+          bookingUpdateForm.get('roomId')?.invalid &&
+          bookingUpdateForm.get('roomId')?.touched
+        "
+        class="field-error"
+      >
+        <small *ngIf="bookingUpdateForm.get('roomId')?.errors?.['required']"
+          >Phòng là bắt buộc</small
+        >
+      </div>
+      <div class="add_input_body">
+        <label for="userId" class="font-semibold w-6rem">
+          Khách hàng
+          <span class="text-red">(*)</span>
+        </label>
+        <p-dropdown
+          name="userId"
+          id="userId"
+          class="dropdown_search"
+          placeholder="Chọn khách hàng"
+          autoWidth="false"
+          [style]="{ width: '100%' }"
+          [options]="userForDropdown"
+          optionLabel="username"
+          optionValue="id"
+          [(ngModel)]="dataBookingSendToUpdate.userId"
+          formControlName="userId"
+        />
+      </div>
+      <div
+        *ngIf="
+          bookingUpdateForm.get('userId')?.invalid &&
+          bookingUpdateForm.get('userId')?.touched
+        "
+        class="field-error"
+      >
+        <small *ngIf="bookingUpdateForm.get('userId')?.errors?.['required']"
+          >Khách hàng là bắt buộc</small
+        >
+      </div>
+      <div class="add_input_body">
+        <label for="checkInDate" class="font-semibold w-6rem">
+          Check-in
+          <span class="text-red">(*)</span>
+        </label>
+        <p-calendar
+          name="checkInDate"
+          id="checkInDate"
+          class="dropdown_search"
+          dateFormat="dd/mm/yy"
+          [style]="{ width: '100%' }"
+          placeholder="Chọn ngày check-in"
+          [showTime]="true"
+          appendTo="body"
+          [(ngModel)]="dataBookingSendToUpdate.checkInDate"
+          formControlName="checkInDate"
+        />
+      </div>
+      <div
+        *ngIf="
+          bookingUpdateForm.get('checkInDate')?.invalid &&
+          bookingUpdateForm.get('checkInDate')?.touched
+        "
+        class="field-error"
+      >
+        <small
+          *ngIf="bookingUpdateForm.get('checkInDate')?.errors?.['required']"
+          >Ngày check-in là bắt buộc</small
+        >
+      </div>
+      <div class="add_input_body">
+        <label for="checkoutDate" class="font-semibold w-6rem">
+          Check-out
+          <span class="text-red">(*)</span>
+        </label>
+        <p-calendar
+          name="checkoutDate"
+          id="checkoutDate"
+          class="dropdown_search"
+          dateFormat="dd/mm/yy"
+          [style]="{ width: '100%' }" 
+          appendTo="body"
+          placeholder="Chọn ngày check-out"
+          [showTime]="true"
+          [(ngModel)]="dataBookingSendToUpdate.checkoutDate"
+          formControlName="checkoutDate"
+        />
+      </div>
+      <div
+        *ngIf="
+          bookingUpdateForm.get('checkoutDate')?.invalid &&
+          bookingUpdateForm.get('checkoutDate')?.touched
+        "
+        class="field-error"
+      >
+        <small
+          *ngIf="bookingUpdateForm.get('checkoutDate')?.errors?.['required']"
+          >Ngày check-out là bắt buộc</small
+        >
+      </div>
+      <div class="add_input_body">
+        <label for="deposit" class="font-semibold w-6rem"> Cọc </label>
+        <input
+          pInputText
+          id="deposit"
+          name="deposit"
+          class="flex-auto"
+          autocomplete="off"
+          type="number"
+          placeholder="Nhập tiền cọc"
+          [(ngModel)]="dataBookingSendToUpdate.deposit"
+          formControlName="deposit"
+        />
+      </div>
+      <div class="add_input_body">
+        <label for="amount" class="font-semibold w-6rem">
+          Tổng tiền
+          <span class="text-red">(*)</span>
+        </label>
+        <input
+          pInputText
+          id="amount"
+          name="amount"
+          class="flex-auto"
+          autocomplete="off"
+          type="number"
+          placeholder="Nhập tổng tiền"
+          [(ngModel)]="dataBookingSendToUpdate.amount"
+          formControlName="amount"
+        />
+      </div>
+      <div
+        *ngIf="
+          bookingUpdateForm.get('amount')?.invalid &&
+          bookingUpdateForm.get('amount')?.touched
+        "
+        class="field-error"
+      >
+        <small *ngIf="bookingUpdateForm.get('amount')?.errors?.['required']"
+          >Tổng tiền là bắt buộc</small
+        >
+      </div>
+      <div class="add_input_body">
+        <label for="userId" class="font-semibold w-6rem">
+          Trạng thái
+          <span class="text-red">(*)</span>
+        </label>
+        <p-dropdown
+          name="status"
+          id="status"
+          class="dropdown_search"
+          placeholder="Chọn trạng thái"
+          autoWidth="false"
+          [style]="{ width: '100%' }"
+          [options]="bookingStatus"
+          optionLabel="code"
+          optionValue="name"
+          [(ngModel)]="dataBookingSendToUpdate.status"
+          formControlName="status"
+        />
+      </div>
+      <p-button
+        class="btn_confirm_add"
+        [disabled]="isSubmitDisabled"
+        (click)="handleUpdateBooking()"
+      >
+        <i class="pi pi-user-edit icon-update"></i>Cập nhật
+      </p-button>
+    </p-dialog>
+  </div>
+</form>
