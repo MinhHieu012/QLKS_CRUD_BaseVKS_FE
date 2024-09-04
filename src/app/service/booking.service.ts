@@ -47,4 +47,9 @@ export class BookingService {
     const headers = this.localStorageService.header();
     return this.http.put<Booking>(`http://localhost:8080/admin/quanlydatphong/update/${dataUpdateBooking.id}`, dataUpdateBooking, { headers });
   }
+
+  public updateBookingStatus(id: Number, status: String) {
+    const headers = this.localStorageService.header();
+    return this.http.put<Booking>(`http://localhost:8080/admin/quanlydatphong/bookingstatus/${id}?status=${status}`, {}, { headers });
+  }
 }

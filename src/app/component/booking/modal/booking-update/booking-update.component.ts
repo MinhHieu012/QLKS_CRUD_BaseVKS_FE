@@ -180,11 +180,10 @@ export class BookingUpdateComponent {
   }
 
   showUpdateSuccessNotification() {
-    this.messageService.add({ severity: 'success', summary: 'Thành công', detail: `Thêm lịch đặt thành công!` });
+    this.messageService.add({ severity: 'success', summary: 'Thành công', detail: `Cập nhật lịch đặt thành công!` });
   }
 
   showUpdateFailedNotification() {
-    this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Thêm lịch đặt thất bại!' });
+    this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: 'Cập nhật lịch đặt thất bại!' });
   }
-
 }
