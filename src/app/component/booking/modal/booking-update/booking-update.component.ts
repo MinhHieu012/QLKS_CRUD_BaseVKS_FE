@@ -23,7 +23,6 @@ export class BookingUpdateComponent {
       userId: ['', [Validators.required]],
       checkInDate: ['', [Validators.required]],
       checkoutDate: ['', [Validators.required]],
-      deposit: ['', [Validators.required]],
       amount: ['', [Validators.required]],
       status: ['', [Validators.required]]
     });
@@ -152,6 +151,9 @@ export class BookingUpdateComponent {
             }
             if (fieldErrors.userExists) {
               this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.userExists}` });
+            }
+            if (fieldErrors.bookingInValid) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.bookingInValid}` });
             }
           } else {
             this.errorMessage = "Lỗi không xác định!";

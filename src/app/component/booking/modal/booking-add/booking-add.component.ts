@@ -118,6 +118,9 @@ export class BookingAddComponent {
             if (fieldErrors.userExists) {
               this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.userExists}` });
             }
+            if (fieldErrors.bookingInValid) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.bookingInValid}` });
+            }
           } else {
             this.errorMessage = "Lỗi không xác định!";
           }
