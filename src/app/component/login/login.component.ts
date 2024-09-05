@@ -3,6 +3,7 @@ import { LoginService } from '../../service/login.service';
 import { IAccount } from '../../interface/login.interface';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -31,8 +32,13 @@ export class LoginComponent {
         this.messageService.add({ severity: 'success', summary: 'Đăng nhập', detail: 'Đăng nhập thành công!' });
         this.clearFormRegister();
       },
-      error: (e) => {
-        alert(e);
+      error: (error: HttpErrorResponse) => {
+        if (error.error) {
+          const fieldErrors = error.error.result;
+          if (fieldErrors.lockedAccount) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.lockedAccount}` });
+          }
+        }
       }
     })
   }
