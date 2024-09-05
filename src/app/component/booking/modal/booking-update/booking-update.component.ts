@@ -24,6 +24,7 @@ export class BookingUpdateComponent {
       checkInDate: ['', [Validators.required]],
       checkoutDate: ['', [Validators.required]],
       amount: ['', [Validators.required]],
+      deposit: [''],
       status: ['', [Validators.required]]
     });
   }
@@ -109,8 +110,8 @@ export class BookingUpdateComponent {
   }
 
   handleUpdateBooking() {
-    const checkInDate = this.dataBookingSendToUpdate.checkInDate;
-    const checkoutDate = this.dataBookingSendToUpdate.checkoutDate;
+    const checkInDate = this.bookingUpdateForm.get('checkInDate')?.value;
+    const checkoutDate = this.bookingUpdateForm.get('checkoutDate')?.value;
 
     if (checkInDate) {
       this.dataBookingSendToUpdate.checkInDate = this.convertToISOStringWithoutOffset(new Date(checkInDate as string));

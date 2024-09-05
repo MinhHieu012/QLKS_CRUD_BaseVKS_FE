@@ -24,6 +24,7 @@ export class BookingAddComponent {
       userId: ['', [Validators.required]],
       checkInDate: ['', [Validators.required]],
       checkoutDate: ['', [Validators.required]],
+      deposit: [''],
       amount: ['', [Validators.required]]
     });
   }

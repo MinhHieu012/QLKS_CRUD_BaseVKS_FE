@@ -44,6 +44,7 @@ export class BookingService {
   }
 
   public updateBooking(dataUpdateBooking: BookingUpdate) {
+    console.log(dataUpdateBooking, 'check service');
     const headers = this.localStorageService.header();
     return this.http.put<Booking>(`http://localhost:8080/admin/quanlydatphong/update/${dataUpdateBooking.id}`, dataUpdateBooking, { headers });
   }
