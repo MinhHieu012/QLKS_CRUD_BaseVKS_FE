@@ -32,8 +32,12 @@
                     Quản lý kiểu phòng
                 </a>
             </li>
-            <li (click)="handleLogout()">
-                <i class="pi pi-users"></i>
+            <li *ngIf="!isLoggedIn" routerLink="/login">
+                <i class="pi pi-sign-in"></i>
+                Đăng nhập
+            </li>
+            <li *ngIf="isLoggedIn" (click)="handleLogout()">
+                <i class="pi pi-sign-out"></i>
                 Đăng xuất
             </li>
         </ul>
