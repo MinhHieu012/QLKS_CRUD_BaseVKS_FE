@@ -141,6 +141,9 @@ export class BookingUpdateComponent {
           if (error.error) {
             this.fieldErrors = error.error.result;
             const fieldErrors = error.error.result;
+            if (fieldErrors.inValidRoomStatusBooking) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.inValidRoomStatusBooking}`});
+            }
             if (fieldErrors.bookingExists) {
               this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.bookingExists}`});
             }
