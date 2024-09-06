@@ -117,9 +117,6 @@
     <p-button class="btn_confirm_add" [disabled]="isSubmitDisabled" (click)="handleUpdateUser()">
       <i class="pi pi-user-edit icon-update"></i>Cập nhật
     </p-button>
-    <div *ngIf="fieldErrors.locked" class="field-error-locked">
-      {{ fieldErrors.locked }}
-    </div>
   </p-dialog>
 </div>
 </form>

@@ -103,7 +103,21 @@ export class UserUpdateComponent {
           }
           if (error.error) {
             const fieldErrors = error.error.result;
-            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.locked}` });
+            if (fieldErrors.locked) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.locked}`});
+            }
+            if (fieldErrors.username) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.username}`});
+            }
+            if (fieldErrors.phone) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.phone}`});
+            }
+            if (fieldErrors.email) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.email}`});
+            }
+            if (fieldErrors.identificationNumber) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.identificationNumber}`});
+            }
           } else {
             this.errorMessage = "Lỗi không xác định!";
           }

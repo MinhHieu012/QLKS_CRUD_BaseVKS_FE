@@ -78,6 +78,19 @@ export class UserAddComponent {
           if (error.error) {
             this.showAddFailedNotification();
             this.fieldErrors = error.error.result;
+            const fieldErrors = error.error.result;
+            if (fieldErrors.username) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.username}`});
+            }
+            if (fieldErrors.phone) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.phone}`});
+            }
+            if (fieldErrors.email) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.email}`});
+            }
+            if (fieldErrors.identificationNumber) {
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.identificationNumber}`});
+            }
           } else {
             this.errorMessage = "Lỗi không xác định!";
           }
