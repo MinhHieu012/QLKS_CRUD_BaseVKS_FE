@@ -37,6 +37,7 @@ export class UserComponent {
   totalPage: number = 0;
   page: number = 1;
   limit: number = 5;
+  currentPage: number = 1;
 
   isLoading: boolean = true;
 
@@ -62,11 +63,13 @@ export class UserComponent {
       this.listUser = data.result.content;
       this.totalItem = data.result.totalElements;
       this.totalPage = data.result.totalPages;
+      this.page = this.stateGetUserWithSearchPaging.page
       this.isLoading = false;
     });
   }
 
   getUserBackAfterAddUpate() {
+    this.stateGetUserWithSearchPaging.page = this.currentPage;
     this.getUserWithSearchAndPaging();
   }
 
