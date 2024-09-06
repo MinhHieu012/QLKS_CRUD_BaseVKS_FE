@@ -26,9 +26,6 @@
     <div *ngIf="userUpdateForm.get('username')?.invalid && userUpdateForm.get('username')?.touched" class="field-error">
       <small *ngIf="userUpdateForm.get('username')?.errors?.['required']">Tên là bắt buộc</small>
     </div>
-    <div *ngIf="fieldErrors.username" class="field-error">
-      {{ fieldErrors.username }}
-    </div>
     <div class="add_input_body">
       <label for="phone" class="font-semibold w-6rem">
         Số điện thoại<span class="text-red"> (*)</span>
@@ -48,9 +45,6 @@
     <div *ngIf="userUpdateForm.get('phone')?.invalid && userUpdateForm.get('phone')?.touched" class="field-error">
       <small *ngIf="userUpdateForm.get('phone')?.errors?.['required']">Số điện thoại là bắt buộc</small>
     </div>
-    <div *ngIf="fieldErrors.phone" class="field-error">
-      {{ fieldErrors.phone }}
-    </div>
     <div class="add_input_body">
       <label for="email" class="font-semibold w-6rem">
         Email<span class="text-red"> (*)</span>
@@ -69,9 +63,6 @@
     </div>
     <div *ngIf="userUpdateForm.get('email')?.invalid && userUpdateForm.get('email')?.touched" class="field-error">
       <small *ngIf="userUpdateForm.get('email')?.errors?.['required']">Email là bắt buộc</small>
-    </div>
-    <div *ngIf="fieldErrors.email" class="field-error">
-      {{ fieldErrors.email }}
     </div>
     <div class="add_input_body">
       <label for="dateOfBirth" class="font-semibold w-6rem">
@@ -110,9 +101,6 @@
     </div>
     <div *ngIf="userUpdateForm.get('identificationNumber')?.invalid && userUpdateForm.get('identificationNumber')?.touched" class="field-error">
       <small *ngIf="userUpdateForm.get('identificationNumber')?.errors?.['required']">Số CMND/CCCD là bắt buộc</small>
-    </div>
-    <div *ngIf="fieldErrors.identificationNumber" class="field-error">
-      {{ fieldErrors.identificationNumber }}
     </div>
     <p-button class="btn_confirm_add" [disabled]="isSubmitDisabled" (click)="handleUpdateUser()">
       <i class="pi pi-user-edit icon-update"></i>Cập nhật

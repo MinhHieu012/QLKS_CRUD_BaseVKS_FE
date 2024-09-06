@@ -26,9 +26,6 @@
     <div *ngIf="userAddForm.get('username')?.invalid && userAddForm.get('username')?.touched" class="field-error">
       <small *ngIf="userAddForm.get('username')?.errors?.['required']">Tên là bắt buộc</small>
     </div>
-    <div *ngIf="fieldErrors.username" class="field-error">
-      {{ fieldErrors.username }}
-    </div>
     <div class="add_input_body">
       <label for="phone" class="font-semibold w-6rem">
         Số điện thoại
@@ -46,9 +43,6 @@
     </div>
     <div *ngIf="userAddForm.get('phone')?.invalid && userAddForm.get('phone')?.touched" class="field-error">
       <small *ngIf="userAddForm.get('phone')?.errors?.['required']">Số điện thoại là bắt buộc</small>
-    </div>
-    <div *ngIf="fieldErrors.phone" class="field-error">
-      {{ fieldErrors.phone }}
     </div>
     <div class="add_input_body">
       <label for="email" class="font-semibold w-6rem">
@@ -68,9 +62,6 @@
     </div>
     <div *ngIf="userAddForm.get('email')?.invalid && userAddForm.get('email')?.touched" class="field-error">
       <small *ngIf="userAddForm.get('email')?.errors?.['required']">Email là bắt buộc</small>
-    </div>
-    <div *ngIf="fieldErrors.email" class="field-error">
-      {{ fieldErrors.email }}
     </div>
     <div class="add_input_body">
       <label for="password" class="font-semibold w-6rem">
@@ -126,12 +117,6 @@
     </div>
     <div *ngIf="userAddForm.get('identificationNumber')?.invalid && userAddForm.get('identificationNumber')?.touched" class="field-error">
       <small *ngIf="userAddForm.get('identificationNumber')?.errors?.['required']">Số CMND/CCCD là bắt buộc</small>
-    </div>
-    <div
-      *ngIf="fieldErrors.identificationNumber"
-      class="field-error-identificationNumber"
-    >
-      {{ fieldErrors.identificationNumber }}
     </div>
     <p-button class="btn_confirm_add" [disabled]="isSubmitDisabled" (click)="handleAddUser()">
       + Thêm
