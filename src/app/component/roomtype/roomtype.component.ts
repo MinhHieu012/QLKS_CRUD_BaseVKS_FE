@@ -114,6 +114,7 @@ export class RoomtypeComponent {
     this.stateGetRoomTypeWithSearchPaging.maxPeople = '';
     this.name = '';
     this.maxPeople = '';
+    this.stateGetRoomTypeWithSearchPaging.page = this.currentPage;
     this.getRoomTypeWithSearchAndPaging();
     this.isFirstTimeSearch = true;
     this.messageService.add({ severity: 'success', summary: 'Tìm kiếm', detail: 'Đã xóa bộ lọc tìm kiếm!' });
