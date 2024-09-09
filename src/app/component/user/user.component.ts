@@ -162,8 +162,8 @@ export class UserComponent {
     this.phone = '';
     this.identificationNumber = '';
     this.stateGetUserWithSearchPaging.page = this.currentPage;
-    this.getUserWithSearchAndPaging();
     this.isFirstTimeSearch = true;
+    this.getUserWithSearchAndPaging();
     this.messageService.add({ severity: 'success', summary: 'Tìm kiếm', detail: 'Đã xóa bộ lọc tìm kiếm!' });
   }
 }

@@ -106,8 +106,8 @@ export class BookingComponent {
     this.checkInDate = '';
     this.checkOutDate = '';
     this.stateGetBookingWithSearchPaging.page = this.currentPage;
-    this.getBookingWithSearchAndPaging();
     this.isFirstTimeSearch = true;
+    this.getBookingWithSearchAndPaging();
     this.messageService.add({ severity: 'success', summary: 'Xóa bộ lọc', detail: 'Đã xóa bộ lọc tìm kiếm!' });
   }
 

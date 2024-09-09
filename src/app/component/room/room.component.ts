@@ -118,8 +118,8 @@ export class RoomComponent {
     this.roomTypeId = '';
     this.status = '';
     this.stateGetRoomWithSearchPaging.page = this.currentPage;
-    this.getRoomWithSearchAndPaging();
     this.isFirstTimeSearch = true;
+    this.getRoomWithSearchAndPaging();
     this.messageService.add({ severity: 'success', summary: 'Xóa bộ lọc', detail: 'Đã xóa bộ lọc tìm kiếm!' });
   }
 }
