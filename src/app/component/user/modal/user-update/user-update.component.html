@@ -8,6 +8,7 @@
     [(visible)]="display"
     (onHide)="closeDialog()"
     [style]="{ width: '33rem' }"
+    [contentStyle]="{'overflow-y': 'auto', 'scrollbar-width': 'none', '-ms-overflow-style': 'none'}"
   >
     <div class="add_input_body">
       <label for="username" class="font-semibold w-6rem">
