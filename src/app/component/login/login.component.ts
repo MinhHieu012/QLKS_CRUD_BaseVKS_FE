@@ -35,18 +35,19 @@ export class LoginComponent {
     } else {
       this.loginService.login(this.account).subscribe({
         next: (data) => {
-          localStorage.setItem("token", JSON.stringify(data)); //Lưu token trả về vào local storage
+          localStorage.setItem("token", JSON.stringify(data));
           this.router.navigate(['/quanlynguoidung']);
           this.appComponent.checkLoginStatus();
           this.messageService.add({ severity: 'success', summary: 'Đăng nhập', detail: 'Đăng nhập thành công!' });
           this.clearFormRegister();
         },
         error: (error: HttpErrorResponse) => {
-          if (error.error) {
-            const fieldErrors = error.error.result;
-            if (fieldErrors.lockedAccount) {
-              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.lockedAccount}` });
-            }
+          if (error.status === 401) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `Thông tin đăng nhập không đúng!` });
+          }
+          const fieldErrors = error.error.result;
+          if (fieldErrors.lockedAccount) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.lockedAccount}` });
           }
         }
       })

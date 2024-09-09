@@ -20,7 +20,7 @@
       <b>Khách đặt:</b>
       <span>{{ item.user.username }} - {{ item.user.phone }}</span>
     </p>
-    <p class="detail_item">
+    <p class="detail_item" routerLink="/quanlyphong" [style]="{ cursor: 'pointer', border: 'none' }">
       <b>Phòng:</b>
       <span>{{ item.room.roomNumber }} - {{ item.room.name }}</span>
     </p>

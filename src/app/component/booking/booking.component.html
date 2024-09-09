@@ -127,7 +127,7 @@
             <app-booking-details
               [bookingIdFromParent]="booking.id"
             ></app-booking-details>
-            <td>{{ booking.room.name }}</td>
+            <td routerLink="/quanlyphong" [style]="{ cursor: 'pointer' }">{{ booking.room.name }}</td>
             <td>{{ booking.user.username }}</td>
             <td>{{ booking.checkInDate | date : "dd-MM-yyyy - HH:mm" }}</td>
             <td>{{ booking.checkoutDate | date : "dd-MM-yyyy - HH:mm" }}</td>

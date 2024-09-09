@@ -89,15 +89,17 @@ export class UserComponent {
               this.getUserWithSearchAndPaging();
             },
             error: (error: HttpErrorResponse) => {
-              if (error.status === 403) {
-                this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
-              }
               if (error.error) {
-                this.messageService.add({ severity: 'error', summary: 'Khóa', detail: `Người dùng có họ tên là ${username} chưa bị khóa!` });
+                if (error.status === 403) {
+                  this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+                } else {
+                  this.messageService.add({ severity: 'error', summary: 'Khóa', detail: `Người dùng có họ tên là ${username} chưa bị khóa!` });
+                }
                 this.fieldErrors = error.error.result;
               } else {
                 this.errorMessage = "Lỗi không xác định!";
               }
+
             }
           })
         },
@@ -125,7 +127,11 @@ export class UserComponent {
             },
             error: (error: HttpErrorResponse) => {
               if (error.error) {
-                this.messageService.add({ severity: 'error', summary: 'Mở khóa', detail: `Người dùng có họ tên là ${username} chưa được mở khóa!` });
+                if (error.status === 403) {
+                  this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+                } else {
+                  this.messageService.add({ severity: 'error', summary: 'Mở khóa', detail: `Người dùng có họ tên là ${username} chưa được mở khóa!` });
+                }
                 this.fieldErrors = error.error.result;
               } else {
                 this.errorMessage = "Lỗi không xác định!";

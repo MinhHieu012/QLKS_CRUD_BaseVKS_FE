@@ -22,7 +22,7 @@ export class RoomtypeComponent {
   ngOnInit() {
     this.getRoomTypeWithSearchAndPaging();
   }
-  
+
   listRoomType: RoomType[] = [];
   errorMessage: String = '';
   fieldErrors: any = {};
@@ -52,7 +52,7 @@ export class RoomtypeComponent {
       if (data.result.content.length === 0) {
         this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy loại phòng nào!' });
         this.isLoading = false;
-      } 
+      }
       if (this.isFirstTimeSearch === true && data.result.content.length > 0 && this.stateGetRoomTypeWithSearchPaging.name !== '' || this.stateGetRoomTypeWithSearchPaging.maxPeople !== '') {
         this.messageService.add({ severity: 'success', summary: 'Tìm kiếm', detail: 'Đã tìm thấy loại phòng!' });
         this.isLoading = false;
@@ -61,9 +61,10 @@ export class RoomtypeComponent {
       this.totalItem = data.result.totalElements;
       this.totalPage = data.result.totalPages;
       this.page = this.stateGetRoomTypeWithSearchPaging.page
-      this.isLoading = false;   
+      this.isLoading = false;
     }
-  )}
+    )
+  }
 
   getRoomTypeBackAfterAddUpate() {
     this.stateGetRoomTypeWithSearchPaging.page = this.currentPage;
@@ -86,6 +87,9 @@ export class RoomtypeComponent {
               this.getRoomTypeWithSearchAndPaging();
             },
             error: (error: HttpErrorResponse) => {
+              if (error.status === 403) {
+                this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+              }
               if (error.error) {
                 const fieldErrors = error.error.result;
                 this.messageService.add({ severity: 'error', summary: 'Xóa', detail: `${fieldErrors.errorDelete}` });

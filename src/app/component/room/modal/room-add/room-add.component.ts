@@ -84,6 +84,9 @@ export class RoomAddComponent {
         },
         error: (error: HttpErrorResponse) => {
           this.display = true;
+          if (error.status === 403) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Bạn không có quyền thao tác!" });
+          }
           if (error.error) {
             this.fieldErrors = error.error.result;
           } else {
