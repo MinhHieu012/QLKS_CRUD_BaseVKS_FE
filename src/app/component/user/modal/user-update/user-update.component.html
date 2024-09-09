@@ -6,6 +6,7 @@
     header="Cập nhật thông tin người dùng"
     [modal]="true"
     [(visible)]="display"
+    (onHide)="closeDialog()"
     [style]="{ width: '33rem' }"
   >
     <div class="add_input_body">
@@ -44,6 +45,7 @@
     </div>
     <div *ngIf="userUpdateForm.get('phone')?.invalid && userUpdateForm.get('phone')?.touched" class="field-error">
       <small *ngIf="userUpdateForm.get('phone')?.errors?.['required']">Số điện thoại là bắt buộc</small>
+      <small *ngIf="userUpdateForm.get('phone')?.errors?.['pattern']">Sai định dạng số điện thoại</small>
     </div>
     <div class="add_input_body">
       <label for="email" class="font-semibold w-6rem">
@@ -63,6 +65,7 @@
     </div>
     <div *ngIf="userUpdateForm.get('email')?.invalid && userUpdateForm.get('email')?.touched" class="field-error">
       <small *ngIf="userUpdateForm.get('email')?.errors?.['required']">Email là bắt buộc</small>
+      <small *ngIf="userUpdateForm.get('email')?.errors?.['email']">Sai định dạng email</small>
     </div>
     <div class="add_input_body">
       <label for="dateOfBirth" class="font-semibold w-6rem">
@@ -101,6 +104,7 @@
     </div>
     <div *ngIf="userUpdateForm.get('identificationNumber')?.invalid && userUpdateForm.get('identificationNumber')?.touched" class="field-error">
       <small *ngIf="userUpdateForm.get('identificationNumber')?.errors?.['required']">Số CMND/CCCD là bắt buộc</small>
+      <small *ngIf="userUpdateForm.get('identificationNumber')?.errors?.['pattern']">Số CMND/CCCD bắt đầu là 0</small>
     </div>
     <p-button class="btn_confirm_add" [disabled]="isSubmitDisabled" (click)="handleUpdateUser()">
       <i class="pi pi-user-edit icon-update"></i>Cập nhật

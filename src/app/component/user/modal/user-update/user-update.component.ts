@@ -21,9 +21,15 @@ export class UserUpdateComponent {
   ) {
     this.userUpdateForm = this.fb.group({
       username: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      identificationNumber: ['', [Validators.required]],
+      phone: ['', [
+        Validators.required,
+        Validators.pattern(/(03|04|05|07|08|09)[0-9]{8,9}$/)
+      ]],
+      identificationNumber: ['', [
+        Validators.required,
+        Validators.pattern(/^(0)[0-9]*$/)
+      ]],
       dateOfBirth: ['', [Validators.required]]
     });
   }
@@ -81,6 +87,10 @@ export class UserUpdateComponent {
       this.dataUserSendToUpdate.dateOfBirth = this.formattedDate
       this.display = true;
     }
+  }
+
+  closeDialog() {
+    this.clearModalDataUpdateUser();
   }
 
   handleUpdateUser() {

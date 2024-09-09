@@ -6,6 +6,7 @@
       header="Thêm người dùng"
       [modal]="true"
       [(visible)]="display"
+      (onHide)="closeDialog()"
       [style]="{ width: '33rem' }"
     >
       <div class="add_input_body">

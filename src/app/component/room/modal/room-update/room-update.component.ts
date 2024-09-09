@@ -90,6 +90,10 @@ export class RoomUpdateComponent {
     }
   }
 
+  closeDialog() {
+    this.clearModalDataUpdateRoom();
+  }
+
   getAllRoomTypeForDropdown() {
     this.roomService.getAllRoomTypeForDropdown().subscribe((data: any) => {
       this.roomType = data.result;

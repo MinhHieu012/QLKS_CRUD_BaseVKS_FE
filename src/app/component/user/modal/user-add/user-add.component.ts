@@ -23,8 +23,14 @@ export class UserAddComponent {
       username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-      identificationNumber: ['', [Validators.required]],
+      phone: ['', [
+        Validators.required,
+        Validators.pattern(/(03|04|05|07|08|09)[0-9]{8,9}$/)
+      ]],
+      identificationNumber: ['', [
+        Validators.required,
+        Validators.pattern(/^(0)[0-9]*$/)
+      ]],
       dateOfBirth: ['', [Validators.required]]
     });
   }
@@ -44,8 +50,13 @@ export class UserAddComponent {
   fieldErrors: any = {};
 
   display: boolean = false;
+
   showDialog() {
     this.display = true;
+  }
+
+  closeDialog() {
+    this.clearModalDataAddUser();
   }
 
   dataAddUser: UserAdd = {
@@ -80,16 +91,16 @@ export class UserAddComponent {
             this.fieldErrors = error.error.result;
             const fieldErrors = error.error.result;
             if (fieldErrors.username) {
-              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.username}`});
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.username}` });
             }
             if (fieldErrors.phone) {
-              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.phone}`});
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.phone}` });
             }
             if (fieldErrors.email) {
-              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.email}`});
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.email}` });
             }
             if (fieldErrors.identificationNumber) {
-              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.identificationNumber}`});
+              this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.identificationNumber}` });
             }
           } else {
             this.errorMessage = "Lỗi không xác định!";

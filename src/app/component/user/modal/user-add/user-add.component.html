@@ -6,6 +6,7 @@
     header="Thêm người dùng"
     [modal]="true"
     [(visible)]="display"
+    (onHide)="closeDialog()"
     [style]="{ width: '33rem' }"
   >
     <div class="add_input_body">
@@ -43,6 +44,7 @@
     </div>
     <div *ngIf="userAddForm.get('phone')?.invalid && userAddForm.get('phone')?.touched" class="field-error">
       <small *ngIf="userAddForm.get('phone')?.errors?.['required']">Số điện thoại là bắt buộc</small>
+      <small *ngIf="userAddForm.get('phone')?.errors?.['pattern']">Sai định dạng số điện thoại</small>
     </div>
     <div class="add_input_body">
       <label for="email" class="font-semibold w-6rem">
@@ -62,6 +64,7 @@
     </div>
     <div *ngIf="userAddForm.get('email')?.invalid && userAddForm.get('email')?.touched" class="field-error">
       <small *ngIf="userAddForm.get('email')?.errors?.['required']">Email là bắt buộc</small>
+      <small *ngIf="userAddForm.get('email')?.errors?.['email']">Sai định dạng email</small>
     </div>
     <div class="add_input_body">
       <label for="password" class="font-semibold w-6rem">
@@ -117,6 +120,7 @@
     </div>
     <div *ngIf="userAddForm.get('identificationNumber')?.invalid && userAddForm.get('identificationNumber')?.touched" class="field-error">
       <small *ngIf="userAddForm.get('identificationNumber')?.errors?.['required']">Số CMND/CCCD là bắt buộc</small>
+      <small *ngIf="userAddForm.get('identificationNumber')?.errors?.['pattern']">Số CMND/CCCD bắt đầu là 0</small>
     </div>
     <p-button class="btn_confirm_add" [disabled]="isSubmitDisabled" (click)="handleAddUser()">
       + Thêm

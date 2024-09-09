@@ -54,12 +54,17 @@ export class RoomtypeUpdateComponent {
   }
 
   display: boolean = false;
+
   showDialog() {
     this.roomTypeDataSendToUpdate.id = this.roomTypeDataIdFromParent;
     this.roomTypeDataSendToUpdate.name = this.roomTypeDataNameFromParent;
     this.roomTypeDataSendToUpdate.maxPeople = this.roomTypeDataMaxPeopleFromParent;
     this.roomTypeDataSendToUpdate.description = this.roomTypeDataDescFromParent;
     this.display = true;
+  }
+
+  closeDialog() {
+    this.clearModalDataUpdateRoomType();
   }
 
   handleUpdateRoomType() {

@@ -41,8 +41,13 @@ export class RoomtypeAddComponent {
   fieldErrors: any = {};
 
   display: boolean = false;
+
   showDialog() {
     this.display = true;
+  }
+
+  closeDialog() {
+    this.clearModalDataAddRoomType();
   }
 
   dataAddRoomType: RoomTypeAddUpdate = {

@@ -53,6 +53,10 @@ export class BookingAddComponent {
     this.display = true;
   }
 
+  closeDialog() {
+    this.clearModalDataAddBooking();
+  }
+
   getAllRoomForDropdown() {
     this.bookingService.getAllRoomForDropdown().subscribe((data: any) => {
       this.roomForDropdown = data.result;

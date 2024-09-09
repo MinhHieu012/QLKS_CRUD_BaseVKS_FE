@@ -59,6 +59,10 @@ export class RoomAddComponent {
     this.display = true;
   }
 
+  closeDialog() {
+    this.clearModalDataAddRoom();
+  }
+
   getAllRoomTypeForDropdown() {
     this.roomService.getAllRoomTypeForDropdown().subscribe((data: any) => {
       this.roomType = data.result;

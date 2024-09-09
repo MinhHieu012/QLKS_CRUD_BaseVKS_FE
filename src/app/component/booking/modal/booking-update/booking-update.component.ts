@@ -91,6 +91,10 @@ export class BookingUpdateComponent {
     this.display = true;
   }
 
+  closeDialog() {
+    this.clearModalDataUpdateBooking();
+  }
+
   getAllRoomForDropdown() {
     this.bookingService.getAllRoomForDropdown().subscribe((data: any) => {
       this.roomForDropdown = data.result;
