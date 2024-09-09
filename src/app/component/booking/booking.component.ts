@@ -37,6 +37,8 @@ export class BookingComponent {
   totalPage: number = 0;
   page: number = 1;
   limit: number = 3;
+  currentPage: number = 1;
+
   stateGetBookingWithSearchPaging: GetBookingWithSearchPaging = {
     page: 1,
     limit: 3,
@@ -61,11 +63,13 @@ export class BookingComponent {
       this.listBooking = data.result.content;
       this.totalItem = data.result.totalElements;
       this.totalPage = data.result.totalPages;
+      this.page = this.stateGetBookingWithSearchPaging.page
       this.isLoading = false;
     })
   }
 
   getAllBookingAgain() {
+    this.stateGetBookingWithSearchPaging.page = this.currentPage;
     this.getBookingWithSearchAndPaging();
   }
 

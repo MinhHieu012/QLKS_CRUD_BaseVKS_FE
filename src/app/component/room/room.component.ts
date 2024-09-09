@@ -47,6 +47,8 @@ export class RoomComponent {
   totalPage: number = 0;
   page: number = 1;
   limit: number = 3;
+  currentPage: number = 1;
+
   stateGetRoomWithSearchPaging: GetRoomWithSearchPaging = {
     page: 1,
     limit: 3,
@@ -78,11 +80,13 @@ export class RoomComponent {
       this.listRoom = data.result.content;
       this.totalItem = data.result.totalElements;
       this.totalPage = data.result.totalPages;
+      this.page = this.stateGetRoomWithSearchPaging.page
       this.isLoading = false;
     })
   }
 
   getAllRoomAgain() {
+    this.stateGetRoomWithSearchPaging.page = this.currentPage;
     this.getRoomWithSearchAndPaging();
   }
 

@@ -35,6 +35,7 @@ export class RoomtypeComponent {
   totalPage: number = 0;
   page: number = 1;
   limit: number = 5;
+  currentPage: number = 1;
 
   isLoading: boolean = true;
 
@@ -59,11 +60,13 @@ export class RoomtypeComponent {
       this.listRoomType = data.result.content;
       this.totalItem = data.result.totalElements;
       this.totalPage = data.result.totalPages;
+      this.page = this.stateGetRoomTypeWithSearchPaging.page
       this.isLoading = false;   
     }
   )}
 
   getRoomTypeBackAfterAddUpate() {
+    this.stateGetRoomTypeWithSearchPaging.page = this.currentPage;
     this.getRoomTypeWithSearchAndPaging();
   }
 
