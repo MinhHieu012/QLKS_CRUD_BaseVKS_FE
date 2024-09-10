@@ -9,8 +9,21 @@ export class CommonComponent {
      constructor(
           private localStorageService: LocalStorageService
      ) { }
+
      checkUserRoleOrLoggedIn() {
           const accessToken = this.localStorageService.getAccessToken();
+          this.checkUserRoleUsingJwt();
           return accessToken;
+     }
+
+     checkUserRoleUsingJwt() {
+          const accessToken = this.localStorageService.getAccessToken();
+          if (accessToken) {
+               const jwtData = accessToken.split('.')[1];
+               const decodedJwtJsonData = window.atob(jwtData);
+               const decodedJwtData = JSON.parse(decodedJwtJsonData);
+               console.log("Role của user đang đăng nhập là: " + decodedJwtData.sub.toUpperCase());
+          }
+          return null;
      }
 }
