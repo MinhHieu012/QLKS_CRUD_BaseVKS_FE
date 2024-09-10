@@ -1,7 +1,7 @@
 <div class="form-login">
   <p>Đăng nhập</p>
-  <input type="text" pInputText [(ngModel)]="account.username" placeholder="Username"/>
-  <input type="text" pInputText [(ngModel)]="account.email" placeholder="Email"/>
-  <p-password type="text" [toggleMask]="true" [(ngModel)]="account.password" placeholder="Password"/>
+  <input type="text" pInputText [(ngModel)]="account.username" placeholder="Username" (keyup.enter)="handleLogin()" />
+  <input type="text" pInputText [(ngModel)]="account.email" placeholder="Email" (keyup.enter)="handleLogin()" />
+  <p-password type="text" [toggleMask]="true" [(ngModel)]="account.password" placeholder="Password" (keyup.enter)="handleLogin()" />
   <p-button label="Đăng nhập" (onClick)="handleLogin()"/>
 </div>
