@@ -22,12 +22,16 @@ export class AppComponent {
 
   isLoggedIn: boolean = false;
 
+  role: String = '';
+  username: String = '';
+
   ngOnInit() {
     this.checkLoginStatus();
   }
 
   checkLoginStatus() {
     const isExistTokenOrLoggedIn = this.commonFunc.checkUserRoleOrLoggedIn();
+    this.handleShowRoleOnSidebar();
     if (!isExistTokenOrLoggedIn) {
       this.isLoggedIn = false;
     }
@@ -46,6 +50,17 @@ export class AppComponent {
         this.checkLoginStatus();
         this.messageService.add({ severity: 'success', summary: 'Đăng xuất', detail: 'Bạn đã đăng xuất thành công!' });
       })
+    }
+  }
+
+  handleShowRoleOnSidebar() {
+    let roleRaw = this.commonFunc.checkUserRoleUsingJwt();
+    if (roleRaw == "admin") {
+      this.role = "Quản trị viên";
+    } if (roleRaw == "manager") {
+      this.role = "NV quản lý";
+    } if (roleRaw == null) {
+      this.role = "Khách";
     }
   }
 }

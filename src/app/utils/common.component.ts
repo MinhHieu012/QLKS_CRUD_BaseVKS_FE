@@ -22,8 +22,9 @@ export class CommonComponent {
                const jwtData = accessToken.split('.')[1];
                const decodedJwtJsonData = window.atob(jwtData);
                const decodedJwtData = JSON.parse(decodedJwtJsonData);
-               console.log("Role của user đang đăng nhập là: " + decodedJwtData.sub.toUpperCase());
+               return decodedJwtData.sub;
+          } else {
+               return null;
           }
-          return null;
      }
 }
