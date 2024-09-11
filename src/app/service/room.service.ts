@@ -15,7 +15,8 @@ export class RoomService {
   ) { }
 
   public getAllRoomTypeForDropdown() {
-    return this.http.get<RoomTypeForDropdown>('http://localhost:8080/admin/quanlykieuphong');
+    const headers = this.localStorageService.header();
+    return this.http.get<RoomTypeForDropdown>('http://localhost:8080/admin/quanlykieuphong', { headers });
   }
 
   public getRoomWithSearchAndPaging(data: GetRoomWithSearchPaging) {

@@ -33,11 +33,13 @@ export class BookingService {
   }
 
   public getAllRoomForDropdown() {
-    return this.http.get<RoomForDropdownModal>('http://localhost:8080/admin/quanlyphong');
+    const headers = this.localStorageService.header();
+    return this.http.get<RoomForDropdownModal>('http://localhost:8080/admin/quanlyphong', { headers });
   }
 
   public getAllUserForDropdown() {
-    return this.http.get('http://localhost:8080/admin/quanlyuser');
+    const headers = this.localStorageService.header();
+    return this.http.get('http://localhost:8080/admin/quanlyuser', { headers });
   }
 
   public addBooking(dataAddBooking: BookingAdd) {
