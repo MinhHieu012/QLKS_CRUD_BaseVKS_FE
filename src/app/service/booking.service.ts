@@ -23,11 +23,13 @@ export class BookingService {
       .set('userName', data.userName ? data.userName : '')
       .set('checkInDate', data.checkInDate ? data.checkInDate.toString() : '')
       .set('checkoutDate', data.checkoutDate ? data.checkoutDate.toString() : '')
-    return this.http.get('http://localhost:8080/admin/quanlydatphong/filter', { params });
+    const headers = this.localStorageService.header();
+    return this.http.get('http://localhost:8080/admin/quanlydatphong/filter', { params, headers });
   }
 
   public getBookingById(id: Number) {
-    return this.http.get(`http://localhost:8080/admin/quanlydatphong/lich/${id}`);
+    const headers = this.localStorageService.header();
+    return this.http.get(`http://localhost:8080/admin/quanlydatphong/lich/${id}`, { headers });
   }
 
   public getAllRoomForDropdown() {

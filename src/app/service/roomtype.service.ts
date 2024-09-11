@@ -21,21 +21,22 @@ export class RoomtypeService {
       .set('limit', '5')
       .set('name', data.name ? data.name : '')
       .set('maxPeople', data.maxPeople ? data.maxPeople : '')
-    return this.http.get<RoomType>('http://localhost:8080/admin/quanlykieuphong/filter', { params })
+    const headers = this.localStorageService.header();
+    return this.http.get<RoomType>('http://localhost:8080/admin/quanlykieuphong/filter', { params, headers })
   }
 
   public addRoomType(dataAddRoomType: RoomTypeAddUpdate) {
     const headers = this.localStorageService.header();
-    return this.http.post<RoomType>('http://localhost:8080/admin/quanlykieuphong/add', dataAddRoomType, {headers});
+    return this.http.post<RoomType>('http://localhost:8080/admin/quanlykieuphong/add', dataAddRoomType, { headers });
   }
 
   public updateRoomType(roomTypeDataSendToUpdate: RoomTypeAddUpdate) {
     const headers = this.localStorageService.header();
-    return this.http.put<RoomType>(`http://localhost:8080/admin/quanlykieuphong/update/${roomTypeDataSendToUpdate.id}`, roomTypeDataSendToUpdate, {headers});
+    return this.http.put<RoomType>(`http://localhost:8080/admin/quanlykieuphong/update/${roomTypeDataSendToUpdate.id}`, roomTypeDataSendToUpdate, { headers });
   }
 
   public deleteRoomType(id: Number) {
     const headers = this.localStorageService.header();
-    return this.http.delete<RoomType>(`http://localhost:8080/admin/quanlykieuphong/delete/${id}`, {headers});
+    return this.http.delete<RoomType>(`http://localhost:8080/admin/quanlykieuphong/delete/${id}`, { headers });
   }
 }

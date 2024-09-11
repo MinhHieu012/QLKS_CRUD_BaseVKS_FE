@@ -49,6 +49,9 @@ export class LoginComponent {
           if (fieldErrors.lockedAccount) {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.lockedAccount}` });
           }
+          if (fieldErrors.invalidRoleAccess) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.invalidRoleAccess}` });
+          }
         }
       })
     }

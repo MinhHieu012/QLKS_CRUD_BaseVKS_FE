@@ -22,7 +22,8 @@ export class UserService {
     .set('username', data.username ? data.username : '')
     .set('phone', data.phone ? data.phone : '')
     .set('identificationNumber', data.identificationNumber ? data.identificationNumber : '')
-    return this.http.get<User>(`http://localhost:8080/admin/quanlyuser/filter`, {params});
+    const headers = this.localStorageService.header();
+    return this.http.get<User>(`http://localhost:8080/admin/quanlyuser/filter`, { params, headers });
   }
 
   public addUser(dataAddUser: UserAdd) {
