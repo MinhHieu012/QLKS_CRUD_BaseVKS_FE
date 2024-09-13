@@ -69,7 +69,7 @@ export class RoomComponent {
   getRoomWithSearchAndPaging() {
     this.isLoading = true;
     this.roomService.getRoomWithSearchAndPaging(this.stateGetRoomWithSearchPaging).subscribe((data: any) => {
-      if (data.result.content.length === 0) {
+      if (data.result.content.length === 0 && this.stateGetRoomWithSearchPaging.name !== '' || this.stateGetRoomWithSearchPaging.roomNumber !== '' || this.stateGetRoomWithSearchPaging.floor !== '' || this.stateGetRoomWithSearchPaging.roomTypeId !== '' || this.stateGetRoomWithSearchPaging.status !== '') {
         this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy phòng nào!' });
         this.isLoading = false;
       }

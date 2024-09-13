@@ -49,7 +49,7 @@ export class RoomtypeComponent {
   getRoomTypeWithSearchAndPaging() {
     this.isLoading = true;
     this.roomTypeService.getRoomTypeWithSearchAndPaging(this.stateGetRoomTypeWithSearchPaging).subscribe((data: any) => {
-      if (data.result.content.length === 0) {
+      if (data.result.content.length === 0 && this.stateGetRoomTypeWithSearchPaging.name !== '' || this.stateGetRoomTypeWithSearchPaging.maxPeople !== '') {
         this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy loại phòng nào!' });
         this.isLoading = false;
       }

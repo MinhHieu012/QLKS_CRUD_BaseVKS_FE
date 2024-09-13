@@ -52,7 +52,7 @@ export class BookingComponent {
   getBookingWithSearchAndPaging() {
     this.isLoading = true;
     this.bookingService.getBookingWithSearchAndPaging(this.stateGetBookingWithSearchPaging).subscribe((data: any) => {
-      if (data.result.content.length === 0) {
+      if (data.result.content.length === 0 && this.stateGetBookingWithSearchPaging.bookingId !== '' || this.stateGetBookingWithSearchPaging.roomName !== '' || this.stateGetBookingWithSearchPaging.userName !== '' || this.stateGetBookingWithSearchPaging.checkInDate !== '' || this.stateGetBookingWithSearchPaging.checkoutDate !== '') {
         this.isLoading = false;
         this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy lịch đặt nào!' });
       }

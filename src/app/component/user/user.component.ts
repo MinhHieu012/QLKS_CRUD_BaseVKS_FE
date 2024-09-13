@@ -52,7 +52,7 @@ export class UserComponent {
   getUserWithSearchAndPaging() {
     this.isLoading = true;
     this.userService.getAllUsers(this.stateGetUserWithSearchPaging).subscribe((data: any) => {
-      if (data.result.content.length === 0) {
+      if (data.result.content.length === 0 && this.stateGetUserWithSearchPaging.username !== '' || this.stateGetUserWithSearchPaging.phone !== '' || this.stateGetUserWithSearchPaging.identificationNumber !== '') {
         this.messageService.add({ severity: 'error', summary: 'Tìm kiếm', detail: 'Không tìm thấy người dùng nào!' });
         this.isLoading = false;
       }
