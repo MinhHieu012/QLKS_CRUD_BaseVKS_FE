@@ -19,6 +19,9 @@ RUN npm run build --prod
 # Sử dụng một lightweight web server để phục vụ ứng dụng Angular
 FROM nginx:alpine
 
+# Copy file cấu hình Nginx tùy chỉnh vào thư mục cấu hình của Nginx
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
 # Copy file build từ step trước vào thư mục chứa trang web
 COPY --from=build /app/dist/vks-fe-angular /usr/share/nginx/html
 
