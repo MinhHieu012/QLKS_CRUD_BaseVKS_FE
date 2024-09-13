@@ -45,12 +45,17 @@ export class LoginComponent {
           if (error.status === 401) {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `Thông tin đăng nhập không đúng!` });
           }
+          if (error.status === 404) {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `Thông tin đăng nhập không đúng!` });
+          }
           const fieldErrors = error.error.result;
           if (fieldErrors.lockedAccount) {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.lockedAccount}` });
           }
           if (fieldErrors.invalidRoleAccess) {
             this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: `${fieldErrors.invalidRoleAccess}` });
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Lỗi', detail: "Lỗi không xác định!" });
           }
         }
       })
