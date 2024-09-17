@@ -6,5 +6,5 @@ import { Injectable } from '@angular/core';
 
 export class EnviromentComponent {
      local: String = 'http://localhost:8080'
-     deloy: String = 'Your server IP or domain name'
+     deloy: String = 'http://103.69.97.125:8080'
 }
