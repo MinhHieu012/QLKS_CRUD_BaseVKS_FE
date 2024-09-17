@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from './local-storage-service.service';
 import { Booking, BookingAdd, BookingUpdate, GetBookingWithSearchPaging, RoomForDropdownModal } from '../interface/booking.interface';
+import { EnviromentComponent } from '../utils/enviroment.component';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class BookingService {
   public message$: BehaviorSubject<string> = new BehaviorSubject('');
   constructor(
     private http: HttpClient,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private env: EnviromentComponent
   ) { }
 
   public getBookingWithSearchAndPaging(data: GetBookingWithSearchPaging) {
@@ -24,37 +26,37 @@ export class BookingService {
       .set('checkInDate', data.checkInDate ? data.checkInDate.toString() : '')
       .set('checkoutDate', data.checkoutDate ? data.checkoutDate.toString() : '')
     const headers = this.localStorageService.header();
-    return this.http.get('http://localhost:8080/admin/quanlydatphong/filter', { params, headers });
+    return this.http.get(`${this.env.local}/admin/quanlydatphong/filter`, { params, headers });
   }
 
   public getBookingById(id: Number) {
     const headers = this.localStorageService.header();
-    return this.http.get(`http://localhost:8080/admin/quanlydatphong/lich/${id}`, { headers });
+    return this.http.get(`${this.env.local}/admin/quanlydatphong/lich/${id}`, { headers });
   }
 
   public getAllRoomForDropdown() {
     const headers = this.localStorageService.header();
-    return this.http.get<RoomForDropdownModal>('http://localhost:8080/admin/quanlyphong', { headers });
+    return this.http.get<RoomForDropdownModal>(`${this.env.local}/admin/quanlyphong`, { headers });
   }
 
   public getAllUserForDropdown() {
     const headers = this.localStorageService.header();
-    return this.http.get('http://localhost:8080/admin/quanlyuser', { headers });
+    return this.http.get(`${this.env.local}/admin/quanlyuser`, { headers });
   }
 
   public addBooking(dataAddBooking: BookingAdd) {
     const headers = this.localStorageService.header();
-    return this.http.post<Booking>('http://localhost:8080/admin/quanlydatphong/add', dataAddBooking, { headers });
+    return this.http.post<Booking>(`${this.env.local}/admin/quanlydatphong/add`, dataAddBooking, { headers });
   }
 
   public updateBooking(dataUpdateBooking: BookingUpdate) {
     console.log(dataUpdateBooking, 'check service');
     const headers = this.localStorageService.header();
-    return this.http.put<Booking>(`http://localhost:8080/admin/quanlydatphong/update/${dataUpdateBooking.id}`, dataUpdateBooking, { headers });
+    return this.http.put<Booking>(`${this.env.local}/admin/quanlydatphong/update/${dataUpdateBooking.id}`, dataUpdateBooking, { headers });
   }
 
   public updateBookingStatus(id: Number, status: String) {
     const headers = this.localStorageService.header();
-    return this.http.put<Booking>(`http://localhost:8080/admin/quanlydatphong/bookingstatus/${id}?status=${status}`, {}, { headers });
+    return this.http.put<Booking>(`${this.env.local}/admin/quanlydatphong/bookingstatus/${id}?status=${status}`, {}, { headers });
   }
 }
